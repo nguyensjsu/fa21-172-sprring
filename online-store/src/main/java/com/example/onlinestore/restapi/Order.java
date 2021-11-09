@@ -13,9 +13,10 @@ import javax.persistence.Table;
 import javax.persistence.Index;
 
 @Entity
+@Data
 @RequiredArgsConstructor
 public class Order {
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue(strategy=GenerationType.AUTO) Long id;
     @Column(nullable=false) private String drink;
     @Column(nullable=false) private String milk;
     @Column(nullable=false) private String size;
