@@ -2,6 +2,6 @@ package com.example.onlinestore.restapi;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-interface CustomerRepository extends JpaRepository<Customer, String> {
+interface OrderRepository extends JpaRepository<Order, String> {
     
 }
