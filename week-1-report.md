@@ -4,6 +4,8 @@
  - [Run Rest API](##run-rest-api)
  - *No fixed header-linking in README file, please use `Ctrl + F` to search.*
 
+## Meeting Time
+ - Wednesday, November 10 = 1 hour 45 minutes
 
 ## Notes
 Card, Customer, and Order objects / tables
