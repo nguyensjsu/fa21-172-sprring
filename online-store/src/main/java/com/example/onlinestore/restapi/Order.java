@@ -17,9 +17,13 @@ import javax.persistence.Index;
 @RequiredArgsConstructor
 public class Order {
     private @Id @GeneratedValue(strategy=GenerationType.AUTO) Long id;
-    @Column(nullable=false) private String drink;
-    @Column(nullable=false) private String milk;
-    @Column(nullable=false) private String size;
+    @Column(nullable=false)
+    private String drink;
+    @Column(nullable=false) 
+    private String milk;
+    @Column(nullable=false) 
+    private String size;
+
     private double total;
     private String status;
 }
