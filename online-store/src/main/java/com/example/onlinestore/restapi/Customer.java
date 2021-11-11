@@ -13,15 +13,15 @@ import javax.persistence.Table;
 import javax.persistence.Index;
 
 @Entity
+@Table()
 @Data
 @RequiredArgsConstructor
 public class Customer {
-    private @Id @GeneratedValue(strategy=GenerationType.AUTO) Long id;
-    @Column(nullable=false) 
+    private @Id @GeneratedValue Long id;
+    @Column(nullable = false)
     private String firstname;
-    @Column(nullable=false) 
+    @Column(nullable = false)
     private String lastname;
-    
     private int rewardpoints;
     private String cardnumber;
 }

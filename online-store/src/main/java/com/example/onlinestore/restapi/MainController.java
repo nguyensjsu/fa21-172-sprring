@@ -28,7 +28,7 @@ public class MainController {
 
     @GetMapping(value={"/","/ping"})
     String home() {
-        return "Welcome to our store!";
+        return "Welcome to our store Gong Cha!";
     }
     @PostMapping("/cards")
     Card newCard() {

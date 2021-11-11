@@ -13,16 +13,15 @@ import javax.persistence.Table;
 import javax.persistence.Index;
 
 @Entity
-@Table(indexes=@Index(name = "altIndex", columnList = "cardnumber", unique = true))
+@Table()
 @Data
 @RequiredArgsConstructor
 public class Card {
-    private @Id @GeneratedValue(strategy=GenerationType.AUTO) Long id;
-    @Column(nullable=false) 
+    private @Id @GeneratedValue Long id;
+    @Column(nullable = false)
     private String cardnumber;
-    @Column(nullable=false) 
+    @Column(nullable = false)
     private String cardcode;
-
     private double balance;
     private boolean activated;
     private String status;
