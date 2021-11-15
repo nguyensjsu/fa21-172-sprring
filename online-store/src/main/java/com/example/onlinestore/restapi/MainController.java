@@ -17,18 +17,18 @@ import org.springframework.http.HttpStatus;
 public class MainController {
     private CustomerRepository customerRepository;
     private CardRepository cardRepository;
-    private OrderRepository orderRepository;
+    private TicketRepository ticketRepository;
 
-    MainController(CustomerRepository customerRepository, CardRepository cardRepository, OrderRepository orderRepository) {
+    MainController(CustomerRepository customerRepository, CardRepository cardRepository, TicketRepository ticketRepository) {
         this.customerRepository = customerRepository;
         this.cardRepository = cardRepository;
-        this.orderRepository = orderRepository;
+        this.ticketRepository = ticketRepository;
     }
 
 
     @GetMapping(value={"/","/ping"})
     String home() {
-        return "Welcome to our store Gong Cha!";
+        return "Welcome to Gong Cha!";
     }
     @PostMapping("/cards")
     Card newCard() {
@@ -55,6 +55,20 @@ public class MainController {
         Card card = cardRepository.findByCardnumber(num);
         if (card == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
+        }
+        return card;
+    }
+
+    @PostMapping("/card/activate/{num}/{code}")
+    Card activate(@PathVariable String num, @PathVariable String code, HttpServletResponse respose) {
+        Card card = cardRepository.findByCardnumber(num);
+        if (card == null) 
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
+        if (card.getCardcode().equals(code)) {
+            card.setActivated(true);
+            cardRepository.save(card);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Valid!");
         }
         return card;
     }

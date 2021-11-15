@@ -2,6 +2,6 @@ package com.example.onlinestore.restapi;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-interface CardRepository extends JpaRepository<Card, String> {
+interface CardRepository extends JpaRepository<Card, Integer> {
     Card findByCardnumber(String cardnumber);
 }

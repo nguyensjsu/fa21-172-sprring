@@ -13,17 +13,14 @@ import javax.persistence.Table;
 import javax.persistence.Index;
 
 @Entity
-// @Table()
+@Table
 @Data
 @RequiredArgsConstructor
-public class Order {
-    private @Id @GeneratedValue Long id;
-    @Column(nullable = false)
-    private String drink;
-    @Column(nullable = false)
-    private String milk;
-    @Column(nullable = false)
-    private String size;
-    // private double total;
-    // private String status;
+public class Ticket {
+    @Id @GeneratedValue(strategy=GenerationType.AUTO) private Integer id;
+    private double total;
+    private String status;
+    @Column(nullable=false) private String drink;
+    @Column(nullable=false) private String milk;
+                            
 }
