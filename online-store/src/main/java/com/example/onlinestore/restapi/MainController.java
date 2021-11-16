@@ -26,10 +26,14 @@ public class MainController {
     }
 
 
+    //Ping method - check status of server
     @GetMapping(value={"/","/ping"})
     String home() {
         return "Welcome to Gong Cha!";
     }
+
+    //Create new card with randomized cardnumber/cardcode and add to database
+    //return new card with default attributes ($20 balance, not activated)
     @PostMapping("/cards")
     Card newCard() {
         Card newcard = new Card();
@@ -45,11 +49,14 @@ public class MainController {
         return cardRepository.save(newcard);
     }
 
+    //Get all the cards in database
     @GetMapping("/cards")
     List<Card> all() {
         return cardRepository.findAll();
     }
 
+    //Get a specific card with cardnumber
+    //argument: 9 digits card number 
     @GetMapping("/card/{num}")
     Card getOne(@PathVariable String num, HttpServletResponse response) {
         Card card = cardRepository.findByCardnumber(num);
@@ -59,6 +66,8 @@ public class MainController {
         return card;
     }
 
+    //Activate one card already in database with cardnumber
+    //if card is not found in db, return error message
     @PostMapping("/card/activate/{num}/{code}")
     Card activate(@PathVariable String num, @PathVariable String code, HttpServletResponse respose) {
         Card card = cardRepository.findByCardnumber(num);
@@ -72,4 +81,6 @@ public class MainController {
         }
         return card;
     }
+
+    //
 }
