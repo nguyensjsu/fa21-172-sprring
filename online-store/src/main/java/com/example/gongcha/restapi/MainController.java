@@ -1,4 +1,4 @@
-package com.example.onlinestore.restapi;
+package com.example.gongcha.restapi;
 
 import java.util.Random;
 import java.util.List;
@@ -33,13 +33,24 @@ public class MainController {
         this.ticketRepository = ticketRepository;
     }
 
+    class Message {
+        private String status;
+        public String getStatus() {
+            return status;
+        }
+        public void setStatus(String msg) {
+            status = msg;
+        }
+    }
+
 
     //Ping method - check status of server
     @GetMapping(value={"/","/ping"})
     String home() {
         return "Welcome to Gong Cha!";
     }
-
+//==================================================================================================
+// Card related calls
     //Create new card with randomized cardnumber/cardcode and add to database
     //return new card with default attributes ($20 balance, not activated)
     @PostMapping("/cards")
@@ -85,11 +96,12 @@ public class MainController {
             card.setActivated(true);
             cardRepository.save(card);
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Valid!");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error. Card Not Valid!");
         }
         return card;
     }
-
+//==================================================================================================
+//Order related calls
     //Submit an order
     @PostMapping("/order/register/{regid}")
     @ResponseStatus(HttpStatus.CREATED)
@@ -110,7 +122,7 @@ public class MainController {
         }
         double price = 0.0;
         switch (order.getDrink()) {
-        case "Jasmine Milktea":
+        case "Milktea":
             switch (order.getDrinksize()) {
             case "Small":
                 price = 2.95;
@@ -126,7 +138,7 @@ public class MainController {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
             }
             break;
-        case "Matcha Greentea":
+        case "Tea":
             switch (order.getDrinksize()) {
             case "Small":
                 price = 2.25;
@@ -142,7 +154,7 @@ public class MainController {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
             }
             break;
-        case "Milk Coffe":
+        case "Coffe":
             switch (order.getDrinksize())  {
             case "Small":
                 price = 3.45;
@@ -158,7 +170,7 @@ public class MainController {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
             }
             break;
-        case "Lychee Slush":
+        case "Smoothie":
             switch (order.getDrinksize()) {
             case "Small":
                 price = 4.25;
@@ -185,7 +197,7 @@ public class MainController {
         order.setTotal(rounded);
         order.setStatus("Ready for Payment.");
         Ticket new_order = ticketRepository.save(order);
-        ticketRepository.put(regid, new_order);
+        orders.put(regid, new_order);
         return new_order;
              
     }
@@ -208,5 +220,57 @@ public class MainController {
     }
 
     //
+    @DeleteMapping("/order/register/{regid}")
+    Message deleteActiveOrder(@PathVariable String regid) {
+        Ticket active = orders.get(regid);
+        if (active != null) {
+            orders.remove(regid);
+            Message msg = new Message();
+            msg.setStatus("Active Order Cleared");
+            return msg;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
+        }
+    }
+
+    //
+    @PostMapping("/order/register/{regid}/pay/{cardnum}")
+    Card processOrder(@PathVariable String regid, @PathVariable String cardnum) {
+        System.out.println("Pay for Order: Reg ID = " + regid + " Using Card  = " + cardnum);
+        Ticket active = orders.get(regid);
+        if (active == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
+        }
+        if (cardnum.equals("")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Card Number Not Found!");
+        }
+        if (active.getStatus().startsWith("Paid With Card")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Clear Paid Active Order!");
+        }
+        Card card = cardRepository.findByCardnumber(cardnum);
+
+        if (card == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Card Not Found!");
+        }
+        if (!card.isActivated()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Card Not Activated!");
+        }
+        double price = active.getTotal();
+        double balance = card.getBalance();
+        if (balance - price < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insufficient Funds on Card!");
+        }
+        double new_balance = balance - price;
+        card.setBalance(new_balance);
+        String status = "Paid with Card: " + cardnum + " Balance $" + new_balance + ".";
+        active.setStatus(status);
+        cardRepository.save(card);
+        ticketRepository.save(active);
+        return card;
+
+    }
+
+//==================================================================================================
+//Customer related calls
 
 }

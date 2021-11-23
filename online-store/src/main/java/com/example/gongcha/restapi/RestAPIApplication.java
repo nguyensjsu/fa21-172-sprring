@@ -1,13 +1,13 @@
-package com.example.onlinestore;
+package com.example.gongcha.restapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OnlineStoreApplication {
+public class RestAPIApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OnlineStoreApplication.class, args);
+		SpringApplication.run(RestAPIApplication.class, args);
 	}
 
 }

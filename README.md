@@ -1,11 +1,15 @@
-# (Project name)
+# GONG CHA
 ## from Team SpRRiNg
 # ==========================================
 ## General Description
 
 Team project for SJSU CMPE 172 Enterprise Software Fall 2021
 
-##
+## Design
+* The whole project is separated into four main division: three microservices and one backend RestAPI.
+* The RestAPI is implemented and deployed On GKE beforehand for microservices to make use of.
+* Each microservices is written within it's own folder and main running class, executing separately.
+* However, all microservices shares the same MySQL database through the backend API for consistency.
 ### 1. Cashier App
 
 The Cashier App is used by the baristas to take in and process orders and their payments. This will call the CyberSource API to handle payments.

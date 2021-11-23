@@ -1,4 +1,4 @@
-package com.example.onlinestore.restapi;
+package com.example.gongcha.restapi;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
