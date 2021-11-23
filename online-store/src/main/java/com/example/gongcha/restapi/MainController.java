@@ -219,21 +219,21 @@ public class MainController {
         }
     }
 
-    //
+    //Clear paid orders
     @DeleteMapping("/order/register/{regid}")
     Message deleteActiveOrder(@PathVariable String regid) {
         Ticket active = orders.get(regid);
-        if (active != null) {
+        if (active != null && active.getStatus().startsWith("Paid With Card")) {
             orders.remove(regid);
             Message msg = new Message();
-            msg.setStatus("Active Order Cleared");
+            msg.setStatus("Paid Active Order Cleared");
             return msg;
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
         }
     }
 
-    //
+    //Pay for an order with an activated card
     @PostMapping("/order/register/{regid}/pay/{cardnum}")
     Card processOrder(@PathVariable String regid, @PathVariable String cardnum) {
         System.out.println("Pay for Order: Reg ID = " + regid + " Using Card  = " + cardnum);
@@ -272,5 +272,6 @@ public class MainController {
 
 //==================================================================================================
 //Customer related calls
+
 
 }
