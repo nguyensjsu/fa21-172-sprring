@@ -1,4 +1,4 @@
-package com.example.customer;
+package com.example.order;
 
 import java.util.Random;
 import java.util.List;
@@ -19,88 +19,24 @@ import org.springframework.http.HttpStatus;
 
 
 @RestController
-public class MainController {
-    private TicketRepository ticketRepository;// our main object to manage
-    @Autowired
-    private CustomerRepository customerRepository;
-    @Autowired
-    private CardRepository cardRepository;
-    private HashMap<String, Ticket> orders = new HashMap<>();
+public class PurchaseController {
 
-    MainController(CustomerRepository customerRepository, CardRepository cardRepository, TicketRepository ticketRepository) {
-        this.customerRepository = customerRepository;
-        this.cardRepository = cardRepository;
-        this.ticketRepository = ticketRepository;
+    private OrderRepository repo;
+    private List<Purchase> purchases;
+
+    PaymentController(OrderRepository repo) {
+        this.repo = repo;
+        purchases = new List<Purchase>();
     }
 
-    class Message {
-        private String status;
-        public String getStatus() {
-            return status;
-        }
-        public void setStatus(String msg) {
-            status = msg;
-        }
-    }
-
-
-    //Ping method - check status of server
+    //Ping method - check status of purchase server
     @GetMapping(value={"/","/ping"})
     String home() {
-        return "Welcome to Gong Cha!";
-    }
-//==================================================================================================
-// Card related calls
-    //Create new card with randomized cardnumber/cardcode and add to database
-    //return new card with default attributes ($20 balance, not activated)
-    @PostMapping("/cards")
-    Card newCard() {
-        Card newcard = new Card();
-        Random random = new Random();
-        int num = random.nextInt(900000000) + 100000000;
-        int code = random.nextInt(900) + 100;
-
-        newcard.setCardnumber(String.valueOf(num));
-        newcard.setCardcode(String.valueOf(code));
-        newcard.setBalance(20.00);
-        newcard.setActivated(false);
-        newcard.setStatus("New Card");
-        return cardRepository.save(newcard);
+        return "Welcome to Gong Cha - Purchase Management!";
     }
 
-    //Get all the cards in database
-    @GetMapping("/cards")
-    List<Card> allCards() {
-        return cardRepository.findAll();
-    }
 
-    //Get a specific card with cardnumber
-    //argument: 9 digits card number 
-    @GetMapping("/card/{num}")
-    Card getOne(@PathVariable String num, HttpServletResponse response) {
-        Card card = cardRepository.findByCardnumber(num);
-        if (card == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
-        }
-        return card;
-    }
-
-    //Activate one card already in database with cardnumber
-    //if card is not found in db, return error message
-    @PostMapping("/card/activate/{num}/{code}")
-    Card activate(@PathVariable String num, @PathVariable String code, HttpServletResponse respose) {
-        Card card = cardRepository.findByCardnumber(num);
-        if (card == null) 
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Card Not Found!");
-        if (card.getCardcode().equals(code)) {
-            card.setActivated(true);
-            cardRepository.save(card);
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error. Card Not Valid!");
-        }
-        return card;
-    }
-//==================================================================================================
+    //==================================================================================================
 //Order related calls
     //Submit an order
     @PostMapping("/order/register/{regid}")
@@ -210,7 +146,7 @@ public class MainController {
 
     //Get specific order with ID
     @GetMapping("/order/register/{regid}")
-    Ticket getActiveOrder(@PathVariable String regid, HttpServletResponse response) {
+    Ticket getActiveOrder(@PathVariable String regid, fHttpServletResponse response) {
         Ticket active = orders.get(regid);
         if (active != null) {
             return active;
@@ -270,10 +206,5 @@ public class MainController {
 
     }
 
-//==================================================================================================
-//Customer related calls
-    //Get all customers
-    @GetMapping("/customers")
-    
 
 }

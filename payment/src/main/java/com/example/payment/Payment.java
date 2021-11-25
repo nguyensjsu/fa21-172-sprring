@@ -1,4 +1,4 @@
-package com.example.customer;
+package com.example.payment;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -12,19 +12,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Index;
 
-/**
- * An order ticket object in the database, is named different from "Order" to avoid conflict with MySQL reserved keyword
- */
-
 @Entity
-@Table
+@Table(indexes=@Index(name = "altIndex", columnList = "cardnumber", unique = true))
 @Data
 @RequiredArgsConstructor
-public class Ticket {
+public class Payment {
     @Id @GeneratedValue(strategy=GenerationType.AUTO) private Integer id;
-    private double total;
+    private double balance;
+    private boolean activated;
     private String status;
-    @Column(nullable=false) private String drink;
-    @Column(nullable=false) private String milk;
-    @Column(nullable=false) private String drinksize;                
+    @Column(nullable=false) private String cardnumber;
+    @Column(nullable=false) private String cardcode;
+                              
 }

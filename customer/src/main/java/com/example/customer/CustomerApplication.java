@@ -1,13 +1,13 @@
-package com.example.order;
+package com.example.customer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BackOfficeApplication {
+public class CustomerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BackOfficeApplication.class, args);
+		SpringApplication.run(CustomerApplication.class, args);
 	}
 
 }
