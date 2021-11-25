@@ -48,4 +48,43 @@ class PaymentsCommand {
     private String authstatus;
     private String captureid;
     private String capturestatus;
+
+    return city;
+    }
+
+    public String state() {
+        return state;
+    }
+
+    public String zip() {
+        return zip;
+    }
+
+    public String phone() {
+        return phone;
+    }
+
+    public String cardnum() {
+        return cardnum;
+    }
+
+    public String cardexpmon() {
+        return cardexpmon;
+    }
+
+    public String cardexpyear() {
+        return cardexpyear;
+    }
+
+    public String cardcvv() {
+        return cardcvv;
+    }
+
+    public String email() {
+        return email;
+    }
+
+    public String notes() {
+        return notes;
+    }
 }
