@@ -1,5 +1,6 @@
 package com.example.order;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
 import java.util.HashMap;
@@ -21,12 +22,24 @@ import org.springframework.http.HttpStatus;
 @RestController
 public class PurchaseController {
 
-    private OrderRepository repo;
+    private PurchaseRepository repo;
     private List<Purchase> purchases;
 
-    PaymentController(OrderRepository repo) {
+    PurchaseController(PurchaseRepository repo) {
         this.repo = repo;
-        purchases = new List<Purchase>();
+        purchases = new ArrayList<Purchase>();
+    }
+
+    class Message {
+        private String status;
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String msg) {
+            status = msg;
+        }
     }
 
     //Ping method - check status of purchase server
@@ -41,14 +54,13 @@ public class PurchaseController {
     //Submit an order
     @PostMapping("/order/register/{regid}")
     @ResponseStatus(HttpStatus.CREATED)
-    Ticket newOrder(@PathVariable String regid, @RequestBody Ticket order) {
+    Purchase newOrder(@PathVariable String regid, @RequestBody Purchase order) {
         System.out.println("Placing Order (Reg ID =" + regid + ") => " + order);
-        if (order.getDrink().equals("") || order.getMilk().equals("") ||
-        order.getDrinksize().equals("")) {
+        if (order.getDrink().equals("") || order.getDrinksize().equals("")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Request!");
         }
 
-        Ticket active = orders.get(regid);
+        Purchase active = purchases.get(Integer.parseInt(regid));
         if (active != null) {
             System.out.println("Active Order (Reg ID = " + regid + ") +> " + active);
             if (active.getStatus().equals("Ready for Payment.")) {
@@ -132,22 +144,22 @@ public class PurchaseController {
         double rounded = Math.round(total + scale) / scale;
         order.setTotal(rounded);
         order.setStatus("Ready for Payment.");
-        Ticket new_order = ticketRepository.save(order);
-        orders.put(regid, new_order);
+        Purchase new_order = PurchaseRepository.save(order);
+        purchases.add(Integer.parseInt(regid), new_order);
         return new_order;
              
     }
 
     //Get list of all orders
     @GetMapping("/orders")
-    List<Ticket> allOrders() {
-        return ticketRepository.findAll();
+    List<Purchase> allOrders() {
+        return repo.findAll();
     }
 
     //Get specific order with ID
     @GetMapping("/order/register/{regid}")
-    Ticket getActiveOrder(@PathVariable String regid, fHttpServletResponse response) {
-        Ticket active = orders.get(regid);
+    Purchase getActiveOrder(@PathVariable String regid, HttpServletResponse response) {
+        Purchase active = purchases.get(Integer.parseInt(regid));
         if (active != null) {
             return active;
         } else {
@@ -158,9 +170,9 @@ public class PurchaseController {
     //Clear paid orders
     @DeleteMapping("/order/register/{regid}")
     Message deleteActiveOrder(@PathVariable String regid) {
-        Ticket active = orders.get(regid);
+        Purchase active = purchases.get(Integer.parseInt(regid));
         if (active != null && active.getStatus().startsWith("Paid With Card")) {
-            orders.remove(regid);
+            purchases.remove(regid);
             Message msg = new Message();
             msg.setStatus("Paid Active Order Cleared");
             return msg;
@@ -173,7 +185,7 @@ public class PurchaseController {
     @PostMapping("/order/register/{regid}/pay/{cardnum}")
     Card processOrder(@PathVariable String regid, @PathVariable String cardnum) {
         System.out.println("Pay for Order: Reg ID = " + regid + " Using Card  = " + cardnum);
-        Ticket active = orders.get(regid);
+        Purchase active = purchases.get(Integer.parseInt(regid));
         if (active == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
         }
@@ -201,7 +213,7 @@ public class PurchaseController {
         String status = "Paid with Card: " + cardnum + " Balance $" + new_balance + ".";
         active.setStatus(status);
         cardRepository.save(card);
-        ticketRepository.save(active);
+        repo.save(active);
         return card;
 
     }

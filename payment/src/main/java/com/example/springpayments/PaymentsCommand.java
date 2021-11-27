@@ -49,8 +49,14 @@ class PaymentsCommand {
     private String captureid;
     private String capturestatus;
 
-    return city;
-    }
+
+    public String firstname(){return firstname;}
+
+    public String lastname(){ return lastname;}
+
+    public String address(){ return address;}
+
+    public String city(){ return city;}
 
     public String state() {
         return state;
@@ -61,23 +67,23 @@ class PaymentsCommand {
     }
 
     public String phone() {
-        return phone;
+        return phonenumber;
     }
 
     public String cardnum() {
-        return cardnum;
+        return cardnumber;
     }
 
     public String cardexpmon() {
-        return cardexpmon;
+        return expmonth;
     }
 
     public String cardexpyear() {
-        return cardexpyear;
+        return expyear;
     }
 
     public String cardcvv() {
-        return cardcvv;
+        return cvv;
     }
 
     public String email() {

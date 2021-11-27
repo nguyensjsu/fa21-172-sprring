@@ -26,5 +26,17 @@ public class Purchase {
     private String status;
     @Column(nullable=false) private String drink;
     @Column(nullable=false) private boolean milk;
-    @Column(nullable=false) private String drinksize;                
+    @Column(nullable=false) private String drinksize;
+
+    public String getDrink() {
+        return drink;
+    }
+
+    public boolean getMilk(){
+        return milk;
+    }
+
+    public String getDrinksize(){
+        return drinksize;
+    }
 }
