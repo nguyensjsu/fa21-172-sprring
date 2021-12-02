@@ -25,7 +25,7 @@ public class CustomerController {
     private CustomerRepository repository;
     private List<Customer> customers;
   
-    MainController(CustomerRepository repository) {
+    CustomerController(CustomerRepository repository) {
         this.repository = repository;
     }
 
@@ -52,8 +52,32 @@ public class CustomerController {
     //Get all customers
     @GetMapping("/customers")
     public List<Customer> all() {
-        return 
+        return repository.findAll();
     }
-    
+
+    //Get specific Customer with ID
+    @GetMapping("/customers/{regid}")
+    Customer getActiveOrder(@PathVariable String regid, HttpServletResponse response) {
+        Customer active = customers.get(Integer.parseInt(regid));
+        if (active != null) {
+            return active;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Customer Not Found!");
+        }
+    }
+
+    //Delete Customer
+    @DeleteMapping("/order/register/{regid}")
+    Message deleteActiveOrder(@PathVariable String regid) {
+        Customer active = customers.get(Integer.parseInt(regid));
+        if (active != null) {
+            customers.remove(regid);
+            Message msg = new Message();
+            msg.setStatus("Customer Removed");
+            return msg;
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Customer Not Found!");
+        }
+    }
 
 }
