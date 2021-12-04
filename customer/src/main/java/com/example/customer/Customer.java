@@ -1,7 +1,11 @@
 package com.example.customer;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.Getter;
+
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -16,12 +20,17 @@ import javax.persistence.Index;
 @Table
 @Data
 @RequiredArgsConstructor
+@Setter
+@Getter
 public class Customer {
     @Id @GeneratedValue(strategy=GenerationType.AUTO) private Integer id;
-    //private int rewardpoints;
+    
+    @Column(nullable=false) private String firstname;
+    @Column(nullable=false) private String lastname;
     @Column(nullable=false) private String username;
+    @Column(nullable=false) private String email;
     @Column(nullable=false) private String password;
-
+    private int rewardpoints;
     
                             
 }

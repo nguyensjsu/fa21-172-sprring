@@ -23,10 +23,11 @@ public class CustomerController {
     
     @Autowired
     private CustomerRepository repository;
-    private List<Customer> customers;
+    private HashMap<String, Customer> customers;
   
     CustomerController(CustomerRepository repository) {
         this.repository = repository;
+        customers = new HashMap<>();
     }
 
     class Message {
@@ -55,10 +56,35 @@ public class CustomerController {
         return repository.findAll();
     }
 
-    //Get specific Customer with ID
-    @GetMapping("/customers/{regid}")
-    Customer getActiveOrder(@PathVariable String regid, HttpServletResponse response) {
-        Customer active = customers.get(Integer.parseInt(regid));
+    //Create new Customer with user's sign up info
+    @PostMapping("/customers")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Customer newCustomer(@RequestBody Customer customer, HttpServletResponse response) {
+        //check if someone with provided first and last name already has an account
+        if(customers.get(customer.getFirstname()+customer.getLastname()) != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Customer already has an account!");
+        }
+        
+        //if no old account is found, create a new one
+        Customer newCustomer = new Customer();
+        
+        newCustomer.setFirstname(customer.getFirstname());
+        newCustomer.setLastname(customer.getLastname());
+        newCustomer.setUsername(customer.getUsername());
+        newCustomer.setEmail(customer.getEmail());
+        newCustomer.setPassword(customer.getPassword());
+        
+        //add to hashmap
+        customers.put(newCustomer.getFirstname() + newCustomer.getLastname(), newCustomer);
+        
+        repository.save(newCustomer);
+        return newCustomer;
+    } 
+
+    //Get specific Customer with first and last name
+    @GetMapping("/customers/{firstname}/{lastname}")
+    Customer getActiveOrder(@PathVariable String firstname, @PathVariable String lastname, HttpServletResponse response) {
+        Customer active = customers.get(firstname.concat(lastname));
         if (active != null) {
             return active;
         } else {
