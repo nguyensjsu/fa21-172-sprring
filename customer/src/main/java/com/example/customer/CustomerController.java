@@ -82,7 +82,7 @@ public class CustomerController {
     } 
 
     //Get specific Customer with first and last name
-    @GetMapping("/customers/{firstname}/{lastname}")
+    @GetMapping("/customer/{firstname}/{lastname}")
     Customer getActiveOrder(@PathVariable String firstname, @PathVariable String lastname, HttpServletResponse response) {
         Customer active = customers.get(firstname.concat(lastname));
         if (active != null) {
@@ -93,7 +93,7 @@ public class CustomerController {
     }
 
     //Delete Customer
-    @DeleteMapping("/order/register/{regid}")
+    @DeleteMapping("/customer/{firstname}/{lastname}")
     Message deleteActiveOrder(@PathVariable String regid) {
         Customer active = customers.get(Integer.parseInt(regid));
         if (active != null) {
