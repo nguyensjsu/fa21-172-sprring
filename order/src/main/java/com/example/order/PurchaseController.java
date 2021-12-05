@@ -116,7 +116,7 @@ public class PurchaseController {
         double rounded = Math.round(total + scale) / scale;
         order.setTotal(rounded);
         order.setStatus("Ready for Payment.");
-        Purchase new_order = PurchaseRepository.save(order);
+        Purchase new_order = repo.save(order);
         purchases.add(Integer.parseInt(regid), new_order);
         return new_order;
              
@@ -129,7 +129,7 @@ public class PurchaseController {
     }
 
     //Get specific order with ID
-    @GetMapping("/order/register/{regid}")
+    @GetMapping("/order/{regid}")
     Purchase getActiveOrder(@PathVariable String regid, HttpServletResponse response) {
         Purchase active = purchases.get(Integer.parseInt(regid));
         if (active != null) {
@@ -140,7 +140,7 @@ public class PurchaseController {
     }
 
     //Clear paid orders
-    @DeleteMapping("/order/register/{regid}")
+    @DeleteMapping("/cancel/{regid}")
     Message deleteActiveOrder(@PathVariable String regid) {
         Purchase active = purchases.get(Integer.parseInt(regid));
         if (active != null && active.getStatus().startsWith("Paid With Card")) {
