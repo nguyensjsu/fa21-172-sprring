@@ -25,18 +25,18 @@ public class Purchase {
     private double total;
     private String status;
     @Column(nullable=false) private String drink;
-    @Column(nullable=false) private boolean milk;
-    @Column(nullable=false) private String drinksize;
+    @Column(nullable=false) private String milk;
+    @Column(nullable=false) private String drinkSize;
 
     public String getDrink() {
         return drink;
     }
 
-    public boolean getMilk(){
+    public String getMilk(){
         return milk;
     }
 
-    public String getDrinksize(){
-        return drinksize;
+    public String getDrinkSize(){
+        return drinkSize;
     }
 }

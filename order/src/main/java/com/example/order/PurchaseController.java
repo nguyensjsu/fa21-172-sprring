@@ -56,7 +56,7 @@ public class PurchaseController {
     @ResponseStatus(HttpStatus.CREATED)
     Purchase newOrder(@PathVariable String regid, @RequestBody Purchase order) {
         System.out.println("Placing Order (Reg ID =" + regid + ") => " + order);
-        if (order.getDrink().equals("") || order.getDrinksize().equals("")) {
+        if (order.getDrink().equals("") || order.getDrinkSize().equals("")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Request!");
         }
 
@@ -68,39 +68,76 @@ public class PurchaseController {
             }
                 
         }
+        String milk = "no milk";
         double price = 0.0;
         switch (order.getDrink()) {
         case "Green Tea":
-            switch (order.getDrinksize()) {
+            switch (order.getDrinkSize()) {
             case "Medium":
                 price = 4.00;
+                switch(order.getMilk()){
+                    case "milk":
+                        milk = "milk";
+                    case "no milk":
+                        milk = "no milk";
+                }
                 break;
             case "Large":
                 price = 5.00;
+                switch(order.getMilk()){
+                    case "milk":
+                        milk = "milk";
+                    case "no milk":
+                        milk = "no milk";
+                }
                 break;
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
             }
             break;
         case "Black Tea":
-            switch (order.getDrinksize()) {
+            switch (order.getDrinkSize()) {
             case "Medium":
                 price = 4.25;
+                switch(order.getMilk()){
+                    case "milk":
+                        milk = "milk";
+                    case "no milk":
+                        milk = "no milk";
+                }
                 break;
             case "Large":
                 price = 5.00;
+                switch(order.getMilk()){
+                    case "milk":
+                        milk = "milk";
+                    case "no milk":
+                        milk = "no milk";
+                }
                 break;
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
             }
             break;
         case "Thai Tea":
-            switch (order.getDrinksize()) {
+            switch (order.getDrinkSize()) {
             case "Medium":
                 price = 4.50;
+                switch(order.getMilk()){
+                    case "milk":
+                        milk = "milk";
+                    case "no milk":
+                        milk = "no milk";
+                }
                 break;
             case "Large":
                 price = 5.00;
+                switch(order.getMilk()){
+                    case "milk":
+                        milk = "milk";
+                    case "no milk":
+                        milk = "no milk";
+                }
                 break;
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
@@ -116,6 +153,7 @@ public class PurchaseController {
         double rounded = Math.round(total + scale) / scale;
         order.setTotal(rounded);
         order.setStatus("Ready for Payment.");
+        order.setMilk(milk);
         Purchase new_order = repo.save(order);
         purchases.add(Integer.parseInt(regid), new_order);
         return new_order;

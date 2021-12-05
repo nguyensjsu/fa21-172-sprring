@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 
-
 @RestController
 public class CustomerController {
     
@@ -128,7 +127,7 @@ public class CustomerController {
     String activate(@RequestBody Customer customer, HttpServletResponse response){
         Customer email = repository.findByEmail(customer.getEmail());
         if(email == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Account ot Found!" );
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Account Not Found!" );
         else {
             String text = customer.getEmail() + "/" + customer.getPassword();
             String hashString = hmac_sha256(key, text);
@@ -155,8 +154,10 @@ public class CustomerController {
         return "Logout Successful";
     }
 
+    /**
     //Reset password
     @PutMapping("/customer/{firstname}/{lastname}")
     Customer changePassword(@RequestBody Customer customer)
+    **/
 
 }
