@@ -1,21 +1,22 @@
 package com.example.customer;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.List;
 import java.util.HashMap;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
 
 
 @RestController
@@ -24,7 +25,6 @@ public class CustomerController {
     @Autowired
     private CustomerRepository repository;
     private HashMap<String, Customer> customers;
-  
     CustomerController(CustomerRepository repository) {
         this.repository = repository;
         customers = new HashMap<>();
@@ -40,6 +40,23 @@ public class CustomerController {
         }
     }
 
+    private static String key = "kwRg54x2Go9iEdl49jFENRM12Mp711QI" ;
+
+    private String hmac_sha256(String secretKey, String data) {
+        try {
+            Mac mac = Mac.getInstance("HmacSHA256");
+            SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(), "HmacSHA256");
+            mac.init(secretKeySpec);
+            byte[] digest = mac.doFinal(data.getBytes());
+            java.util.Base64.Encoder encoder = java.util.Base64.getEncoder();
+            String hash_string = encoder.encodeToString(digest);
+            return hash_string;
+        } catch (InvalidKeyException e1) {
+            throw new RuntimeException("invalid key exception while converting to HMAC SHA256");
+        } catch (NoSuchAlgorithmException e2) {
+            throw new RuntimeException("Java Exception Initializing HMAC Crypto Algorithm");
+        }
+    }
 
     //Ping method - check status of customer server
     @GetMapping(value={"/","/ping"})
@@ -57,7 +74,7 @@ public class CustomerController {
     }
 
     //Create new Customer with user's sign up info
-    @PostMapping("/customers")
+    @PostMapping("/customers/register")
     @ResponseStatus(HttpStatus.CREATED)
     public Customer newCustomer(@RequestBody Customer customer, HttpServletResponse response) {
         //check if someone with provided first and last name already has an account
@@ -93,7 +110,11 @@ public class CustomerController {
     }
 
     //Delete Customer
+<<<<<<< HEAD
     @DeleteMapping("/customer/{firstname}/{lastname}")
+=======
+    @DeleteMapping("/customers/delete/{regid}")
+>>>>>>> 23ca85485e1b6a87677e260e7ea61874e25344c3
     Message deleteActiveOrder(@PathVariable String regid) {
         Customer active = customers.get(Integer.parseInt(regid));
         if (active != null) {
@@ -104,6 +125,38 @@ public class CustomerController {
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Customer Not Found!");
         }
+    }
+
+    //Customer Login
+    @PostMapping("/login")
+    String activate(@RequestBody Customer customer, HttpServletResponse response){
+        Customer email = repository.findByEmail(customer.getEmail());
+        if(email == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Account ot Found!" );
+        else {
+            String text = customer.getEmail() + "/" + customer.getPassword();
+            String hashString = hmac_sha256(key, text);
+            System.out.println(hashString);
+            if(email.getPassword().equals(hashString) ){
+                email.setLoggedIn(true);
+                repository.save(email);
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Invalid Password.");
+            }
+
+        }
+        return "Login Successful";
+    }
+
+    //Customer Logout
+    @PostMapping("/logout")
+    String logout(@RequestBody Customer customer, HttpServletResponse response){
+        Customer email = repository.findByEmail(customer.getEmail());
+        if(email.isLoggedIn()){
+            email.setLoggedIn(false);
+            repository.save(email);
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Not logged in");
+        return "Logout Successful";
     }
 
 }
