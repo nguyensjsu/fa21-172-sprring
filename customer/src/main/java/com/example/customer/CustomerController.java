@@ -110,11 +110,7 @@ public class CustomerController {
     }
 
     //Delete Customer
-<<<<<<< HEAD
     @DeleteMapping("/customer/{firstname}/{lastname}")
-=======
-    @DeleteMapping("/customers/delete/{regid}")
->>>>>>> 23ca85485e1b6a87677e260e7ea61874e25344c3
     Message deleteActiveOrder(@PathVariable String regid) {
         Customer active = customers.get(Integer.parseInt(regid));
         if (active != null) {
@@ -158,5 +154,9 @@ public class CustomerController {
         } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Not logged in");
         return "Logout Successful";
     }
+
+    //Reset password
+    @PutMapping("/customer/{firstname}/{lastname}")
+    Customer changePassword(@RequestBody Customer customer)
 
 }
