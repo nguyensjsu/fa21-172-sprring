@@ -18,18 +18,19 @@ class SignUp extends Component {
       lastname: '',
       username: '',
       email: '',
-      password: '',
-      loggedIn: true
-    }
+      password: ''
+    } 
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  // sets the state when inputs in sign up form are filled
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  // handles POST request when form is submitted
   handleSubmit = e => {
     e.preventDefault()
     console.log(this.state)
@@ -116,7 +117,7 @@ class SignUp extends Component {
             <br />
             <br />
 
-            <label for='username'>Username:</label>
+            {/* <label for='username'>Username:</label>
             <br />
             <input
               onChange={this.handleChange} 
@@ -128,7 +129,7 @@ class SignUp extends Component {
               size='70'
             />
             <br />
-            <br />
+            <br /> */}
 
             <label for='email'>E-mail:</label>
             <br />
@@ -159,7 +160,7 @@ class SignUp extends Component {
             <br />
             <br />
 
-            <button type='submit'>Submit</button>
+            <button class='submit' type='submit'>Submit</button>
           </form>
         </div>
       </div>

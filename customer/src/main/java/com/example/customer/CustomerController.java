@@ -88,9 +88,13 @@ public class CustomerController {
         
         newCustomer.setFirstname(customer.getFirstname());
         newCustomer.setLastname(customer.getLastname());
-        newCustomer.setUsername(customer.getUsername());
+        // newCustomer.setUsername(customer.getUsername());
         newCustomer.setEmail(customer.getEmail());
-        newCustomer.setPassword(customer.getPassword());
+
+        // hash password before POSTING
+        String text = customer.getPassword();
+        String hashString = hmac_sha256(key, text);
+        newCustomer.setPassword(hashString);
         
         //add to hashmap
         customers.put(newCustomer.getFirstname() + newCustomer.getLastname(), newCustomer);
@@ -132,7 +136,7 @@ public class CustomerController {
         if(email == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Error. Account Not Found!" );
         else {
-            String text = customer.getEmail() + "/" + customer.getPassword();
+            String text = customer.getPassword();
             String hashString = hmac_sha256(key, text);
             System.out.println(hashString);
             if(email.getPassword().equals(hashString) ){
