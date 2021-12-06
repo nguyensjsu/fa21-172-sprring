@@ -68,6 +68,7 @@ public class CustomerController {
 //Customer related calls
     //Get all customers
     @GetMapping("/customers")
+    @CrossOrigin(origins = "*")
     public List<Customer> all() {
         return repository.findAll();
     }
@@ -75,6 +76,7 @@ public class CustomerController {
     //Create new Customer with user's sign up info
     @PostMapping("/customers/register")
     @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin(origins = "*")
     public Customer newCustomer(@RequestBody Customer customer, HttpServletResponse response) {
         //check if someone with provided first and last name already has an account
         if(customers.get(customer.getFirstname()+customer.getLastname()) != null) {
