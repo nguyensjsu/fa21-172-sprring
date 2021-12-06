@@ -1,5 +1,9 @@
 import React from 'react';
-import gongchaLogo from '../images/gongchaLogo.jpg'
+// import css
+import './Navbar.css'
+
+// import Gong Cha Logo
+import gongchaLogo from '../images/gongchaLogo.jpg';
 
 function Navbar() {
     return (
