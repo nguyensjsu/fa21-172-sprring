@@ -1,31 +1,66 @@
 // import template
-import Navbar from './template/Navbar';
+import Navbar from './template/Navbar'
 
 // import pages
-import SignUp from './pages/SignUp';
-
+import SignUp from './pages/SignUp'
+import Home from './pages/Home'
+import CustomerLogin from './pages/CustomerLogin'
+import Menu from './pages/Menu'
+import CustomerDashboard from './pages/CustomerDashboard'
+import EmployeeDashboard from './pages/EmployeeDashboard'
+import EmployeeLogin from './pages/EmployeeLogin'
 // import css for App.js
-import './App.css';
+import './App.css'
 
-// import router 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import router
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className='App'>
         <Navbar />
-        <div className="content">
-          { /* Ensures only 1 webpage is displayed */ }
+        <div className='content'>
+          {/* Ensures only 1 webpage is displayed */}
           <Switch>
-            <Route path="/signup">
+            <Route path='/signup'>
               <SignUp />
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path='/home'>
+              <Home />
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path='/customerlogin'>
+              <CustomerLogin />
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path='/employeelogin'>
+              <EmployeeLogin />
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path='/menu'>
+              <Menu />
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path='/customerdashboard'>
+              <CustomerDashboard />
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path='/employeedashboard'>
+              <EmployeeDashboard />
             </Route>
           </Switch>
         </div>
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App
