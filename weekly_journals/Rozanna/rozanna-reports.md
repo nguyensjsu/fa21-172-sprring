@@ -61,3 +61,6 @@ worked on payment/ folder on changing lab 7 material into a rest api
 prioritizing what can be done in the limited time the team has left (20 hours left)
 
 ## 12/6
+group call to talk about the project
+talked about frontend
+I added to the project readme
