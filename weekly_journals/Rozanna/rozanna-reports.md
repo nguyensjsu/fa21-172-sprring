@@ -38,3 +38,23 @@ found out payment processing goes to backend, implement API / frontend on top of
 
 ## 12/1
 worked on payments some more
+
+## 12/5
+group call to talk about the project
+need to 
+    - frontend
+        - create customer dashboard with menu
+        - settings page to reset user password
+        - copy and paste payment submission form
+        - can view past orders (history)
+    - back office dashboard
+        - login only
+        - reset password request
+        - table of orders
+
+
+frontend -> kong gateway -> rest apis -> micro services?
+
+frontend talks to kong gateway through http request
+
+worked on payment/ folder on changing lab 7 material into a rest api
