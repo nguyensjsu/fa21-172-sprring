@@ -182,8 +182,10 @@ public class PaymentsController {
             System.out.println(successMsg);
             payments.put("pass", successMsg);
             return payments;
+        } else {
+            payments.put("err: misc", "An error occurred; please try again. (PaymentsController)");
+            return payments;
         }
-
     }
 
     // private CyberSourceAPI api = new CyberSourceAPI();
