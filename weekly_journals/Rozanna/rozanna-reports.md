@@ -41,7 +41,7 @@ worked on payments some more
 
 ## 12/5
 group call to talk about the project
-need to 
+need to create
     - frontend
         - create customer dashboard with menu
         - settings page to reset user password
@@ -52,9 +52,8 @@ need to
         - reset password request
         - table of orders
 
-
 frontend -> kong gateway -> rest apis -> micro services?
 
-frontend talks to kong gateway through http request
+frontend talks to kong gateway through http request - axois in react
 
 worked on payment/ folder on changing lab 7 material into a rest api
