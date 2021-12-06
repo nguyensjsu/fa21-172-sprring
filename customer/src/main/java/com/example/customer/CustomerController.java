@@ -156,7 +156,7 @@ public class CustomerController {
     }
 
     //Reset password
-    @PutMapping("/customer/{firstname}/{lastname}")
-    Customer changePassword(@RequestBody Customer customer)
+    //@PutMapping("/customer/{firstname}/{lastname}")
+    //Customer changePassword(@RequestBody Customer customer)
 
 }
