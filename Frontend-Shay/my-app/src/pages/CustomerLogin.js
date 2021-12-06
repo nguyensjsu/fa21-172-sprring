@@ -10,7 +10,7 @@ class Login extends Component {
     return (
       <div class='wrapper'>
         <div class='menuContent'>
-          <h2>Log In</h2>
+          <h2>Customer Login</h2>
           <form action='/action_page.php'>
             <label for='lname'>Username:</label>
             <br></br>

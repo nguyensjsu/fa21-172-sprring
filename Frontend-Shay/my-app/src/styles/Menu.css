@@ -7,43 +7,6 @@ body {
   margin: 0;
 }
 
-/* navbar content */
-.gongchaLogoImg {
-  height: 5rem;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.navbar {
-  margin: auto;
-}
-
-.navbarList {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  border-bottom: 1px solid rgb(151, 151, 151);
-}
-
-.navbarItem {
-  float: left;
-  width: 25%;
-}
-
-.navbarItem a {
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.navbarItem a:hover {
-  background-color: rgb(212, 212, 212);
-}
-
 /* wrapper content */
 .wrapper {
   width: 70%;
@@ -81,4 +44,8 @@ body {
   object-fit: cover;
   margin: auto;
   border-radius: 50%;
+}
+
+.drinksize {
+  text-align: left;
 }

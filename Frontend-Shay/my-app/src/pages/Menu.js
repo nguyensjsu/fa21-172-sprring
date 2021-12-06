@@ -18,7 +18,7 @@ class Home extends Component {
             <div class='menuDetails'>
               <h3 class='menuItemName'>Green Tea (Tea/Milk Tea)</h3>
 
-              <p>Drink size:</p>
+              <p class='drinksize'>Drink size:</p>
               <ul>
                   <li>Medium $4.00</li>  <li>Large $5.00</li>
               </ul>
@@ -30,7 +30,7 @@ class Home extends Component {
             <div class='menuDetails'>
               <h3 class='menuItemName'>Black Tea (Tea/Milk Tea)</h3>
 
-              <p>Drink size:</p>
+              <p class='drinksize'>Drink size:</p>
               <ul>
                   <li>Medium $4.25</li>  <li>Large $5.00</li>
               </ul>
@@ -42,7 +42,7 @@ class Home extends Component {
             <div class='menuDetails'>
               <h3 class='menuItemName'>Thai Tea (Tea/Milk Tea)</h3>
 
-              <p>Drink size:</p>
+              <p class='drinksize'>Drink size:</p>
               <ul>
                   <li>Medium $4.50</li>  <li>Large $5.00</li>
               </ul>

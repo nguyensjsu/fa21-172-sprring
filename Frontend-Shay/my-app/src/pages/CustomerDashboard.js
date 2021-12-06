@@ -18,7 +18,7 @@ class Home extends Component {
           </div>
 
           <div class='passChangeSection'>
-            <form action='/action_page.php'>
+            <form class='passChangeForm' action='/action_page.php'>
               <label for='lname'>Current Password:</label>
               <br></br>
               <input

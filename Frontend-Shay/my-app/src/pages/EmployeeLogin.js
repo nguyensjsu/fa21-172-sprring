@@ -10,7 +10,7 @@ class Home extends Component {
     return (
       <div class='wrapper'>
         <div class='menuContent'>
-          <h2>Employee Log In</h2>
+          <h2>Employee Login</h2>
 
           <form action='/action_page.php'>
             <label for='lname'>Username:</label>

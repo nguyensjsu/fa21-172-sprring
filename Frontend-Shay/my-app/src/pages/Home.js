@@ -12,9 +12,9 @@ class Home extends Component {
         <div class='homeContent'>
           <h2>Welcome to Gong Cha!</h2>
 
-          <p>View our drinks on the menu tab</p>
-          <p>If you want to order a drink, log in as a customer</p>
-          <p>If you an employee, please log in</p>
+          <p class='description'>View our drinks on the menu tab!</p>
+          <p class='description'> If you want to order a drink, please log in as a customer.</p>
+          <p class='description'>If you are an employee, please log in.</p>
         </div>
       </div>
     )
