@@ -156,13 +156,8 @@ public class CustomerController {
 
     /**
     //Reset password
-<<<<<<< HEAD
-    //@PutMapping("/customer/{firstname}/{lastname}")
-    //Customer changePassword(@RequestBody Customer customer)
-=======
     @PutMapping("/customer/{firstname}/{lastname}")
     Customer changePassword(@RequestBody Customer customer)
     **/
->>>>>>> fc33ef9dec30e18d887af13dd7eabae49a56b0be
 
 }
