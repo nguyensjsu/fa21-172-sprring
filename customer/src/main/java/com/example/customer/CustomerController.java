@@ -101,7 +101,7 @@ public class CustomerController {
 
     //Get specific Customer with first and last name
     @GetMapping("/customer/{firstname}/{lastname}")
-    Customer getActiveOrder(@PathVariable String firstname, @PathVariable String lastname, HttpServletResponse response) {
+    Customer getCustomer(@PathVariable String firstname, @PathVariable String lastname, HttpServletResponse response) {
         Customer active = customers.get(firstname.concat(lastname));
         if (active != null) {
             return active;
@@ -112,7 +112,7 @@ public class CustomerController {
 
     //Delete Customer
     @DeleteMapping("/customer/{firstname}/{lastname}")
-    Message deleteActiveOrder(@PathVariable String regid) {
+    Message deleteCustomer(@PathVariable String regid) {
         Customer active = customers.get(Integer.parseInt(regid));
         if (active != null) {
             customers.remove(regid);
