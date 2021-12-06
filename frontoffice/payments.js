@@ -85,7 +85,17 @@ export default function Payments(props)
         return new RegExp('^[0-9]{3}$').test(cvv);
     }
 
-
+    function check_empty(text)
+    {
+        if (text.trim() == '') 
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
 
     return (
         <div>
