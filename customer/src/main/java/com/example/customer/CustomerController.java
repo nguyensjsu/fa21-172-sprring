@@ -126,6 +126,7 @@ public class CustomerController {
 
     //Customer Login
     @PostMapping("/login")
+    @CrossOrigin(origins = "*")
     String activate(@RequestBody Customer customer, HttpServletResponse response){
         Customer email = repository.findByEmail(customer.getEmail());
         if(email == null)
@@ -147,6 +148,7 @@ public class CustomerController {
 
     //Customer Logout
     @PostMapping("/logout")
+    @CrossOrigin(origins = "*")
     String logout(@RequestBody Customer customer, HttpServletResponse response){
         Customer email = repository.findByEmail(customer.getEmail());
         if(email.isLoggedIn()){

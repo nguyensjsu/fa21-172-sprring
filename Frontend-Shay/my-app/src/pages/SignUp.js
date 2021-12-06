@@ -1,74 +1,170 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 // import css
 import '../styles/SignUp.css'
 
 // import axios
-import axios from 'axios';
+import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080/customers'
+  baseURL: 'http://localhost:8080/customers',
 })
 
 class SignUp extends Component {
-    constructor() {
-        super();
-        this.getCustomers();
+  constructor() {
+    super()
+    // this.getCustomers()
+    this.state = {
+      firstname: '',
+      lastname: '',
+      username: '',
+      email: '',
+      password: '',
+      loggedIn: true
     }
 
-    // holder for customer object in RestAPI
-    state = {
-        customers: []
-    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
-    // get all customers
-    getCustomers = async () => {
-        let data = await api.get('/').then(({ data }) => data);
-        console.log(data);
-        this.setState({ customers: data })
-    }
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
 
-    // create a customer and save to RestAPI
-    createCustomer = async () => {
-        let res = await api.post('/register', { id: 123, firstname: "John", lastname: "Doe", username: "JohnDoe101", email: "john@doe.com", password: "password", loggedIn: false})
-        console.log(res)
-        this.getCustomers();
-    }
+  handleSubmit = e => {
+    e.preventDefault()
+    console.log(this.state)
+    axios.post('http://localhost:8080/customers/register', this.state)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
-    render() {
-        return (
-            /*main content*/
-            <div className="wrapper">
-                <div class="signUpContent">
-                    <h2>Sign up!</h2>
+  // // holder for customer object in RestAPI
+  // state = {
+  //   customers: [],
+  // }
 
-                    { /*Customers*/}
-                    <button onClick={this.createCustomer}>createCustomer</button>
-                    {this.state.customers.map(customer => <h2 key={customer.id}>{customer.firstname}</h2>)}
-    
-                    <label for="fname">First name:</label><br />
-                    <input type="text" id="fname" name="fname" value="John" size="70" /><br /><br />
-    
-                    <label for="lname">Last name:</label><br />
-                    <input type="text" id="lname" name="lname" value="Doe" size="70" /><br /><br />
-    
-                    <label for="lname">Username:</label><br />
-                    <input type="text" id="uname" name="uname" value="JohnDoe101" size="70" /><br /><br />
-    
-                    <label for="lname">E-mail:</label><br />
-                    <input type="email" id="email" name="email" value="john@doe.com" size="70" /><br /><br />
-    
-                    <label for="lname">Password:</label><br />
-                    <input type="password" id="lname" name="lname" value="password" size="70" /><br /><br />
-                    
-                    <br />
-    
-                    <input class="submit" type="submit" value="Submit" />
-    
-                </div>
-            </div>
-        );
-    }
-    
+  // // get all customers
+  // getCustomers = async () => {
+  //   let data = await api.get('/').then(({ data }) => data)
+  //   console.log(data)
+  //   this.setState({ customers: data })
+  // }
+
+  // // create a customer and save to RestAPI
+  // createCustomer = async () => {
+  //   let res = await api.post('/register', {
+  //     id: 123,
+  //     firstname: 'John',
+  //     lastname: 'Doe',
+  //     username: 'JohnDoe101',
+  //     email: 'john@doe.com',
+  //     password: 'password',
+  //     loggedIn: false,
+  //   })
+  //   console.log(res)
+  //   this.getCustomers()
+  // }
+
+  render() {
+    const {
+      firstname,
+      lastname,
+      username,
+      email,
+      password,
+    } = this.state
+
+    return (
+      /*main content*/
+      <div className='wrapper'>
+        <div class='signUpContent'>
+          <h2>Sign up!</h2>
+
+          {/*Customers*/}
+          {/* <button onClick={this.createCustomer}>createCustomer</button>
+          {this.state.customers.map((customer) => (
+            <h2 key={customer.id}>{customer.firstname}</h2>
+          ))} */}
+          <form onSubmit={this.handleSubmit}>
+            <label for='firstname'>First name:</label>
+            <br />
+            <input 
+              onChange={this.handleChange} 
+              id='firstname' 
+              type='text'  
+              name='firstname' 
+              placeholder='John' 
+              value={firstname}
+              size='70' />
+            <br />
+            <br />
+
+            <label for='lastname'>Last name:</label>
+            <br />
+            <input 
+              onChange={this.handleChange} 
+              id='lastname' 
+              type='text'  
+              name='lastname' 
+              placeholder='Doe' 
+              value={lastname}
+              size='70' />
+            <br />
+            <br />
+
+            <label for='username'>Username:</label>
+            <br />
+            <input
+              onChange={this.handleChange} 
+              id='username'
+              type='text'
+              name='username'
+              placeholder='JohnDoe101'
+              value={username}
+              size='70'
+            />
+            <br />
+            <br />
+
+            <label for='email'>E-mail:</label>
+            <br />
+            <input
+              onChange={this.handleChange} 
+              type='email'
+              id='email'
+              name='email'
+              placeholder='john@doe.com'
+              value={email}
+              size='70'
+            />
+            <br />
+            <br />
+
+            <label for='emial'>Password:</label>
+            <br />
+            <input
+              onChange={this.handleChange} 
+              type='password'
+              id='password'
+              name='password'
+              placeholder='password'
+              value={password}
+              size='70'
+            />
+            <br />
+            <br />
+            <br />
+
+            <button type='submit'>Submit</button>
+          </form>
+        </div>
+      </div>
+    )
+  }
 }
 
-export default SignUp;
+export default SignUp
