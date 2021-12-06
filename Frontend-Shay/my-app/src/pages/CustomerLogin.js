@@ -1,36 +1,99 @@
 import React, { Component, Fragment, useEffect } from 'react'
+// allow for links to other webpages
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios'
 import '../styles/Login.css'
 
-class Login extends Component {
+class CustomerLogin extends Component {
   constructor() {
     super()
+
+    this.state = {
+      firstname: '',
+      lastname: '',
+      username: '',
+      email: '',
+      password: ''
+    } 
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
+
+  // handles what wil happen when page is first loaded
+  componentDidMount() {
+    axios.get('https:localhost:8080/customers')
+    .then(response => {
+      console.log(response)
+    })
+    .catch(error => {
+      console.log(error)
+    }) 
+  }
+
+  // sets the state when inputs in sign up form are filled
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  // handles POST request when form is submitted
+  handleSubmit = e => {
+    e.preventDefault()
+    console.log(this.state)
+    axios.post('http://localhost:8080/login', this.state)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
   render() {
+
+    const {
+      firstname,
+      lastname,
+      username,
+      email,
+      password,
+    } = this.state
+
+    // redirect if logged in
+    // if(isAuthenticated)
+    // {
+    //     return <Redirect to='/dashboard' />
+    // }
+
+    // otherwise, have user log in
     return (
       <div class='wrapper'>
         <div class='menuContent'>
           <h2>Customer Login</h2>
-          <form action='/action_page.php'>
-            <label for='lname'>Username:</label>
+          <form onSubmit={this.handleSubmit} action={<Link to='/customerdashboard'>Home</Link>}>
+            <label for='username'>E-mail:</label>
             <br></br>
             <input
-              type='text'
-              id='uname'
-              name='uname'
-              value='JohnDoe101'
+              onChange={this.handleChange} 
+              type='email'
+              id='email'
+              name='email'
+              placeholder='john@doe.com'
+              value={email}
               size='70'
             ></input>
             <br></br>
             <br></br>
 
-            <label for='lname'>Password:</label>
+            <label for='password'>Password:</label>
             <br></br>
             <input
+              onChange={this.handleChange} 
               type='password'
-              id='pass'
-              name='pass'
-              value='password'
+              id='password'
+              name='password'
+              placeholder='password'
+              value={password}
               size='70'
             ></input>
             <br></br>
@@ -38,7 +101,7 @@ class Login extends Component {
 
             <br></br>
 
-            <input class='submit' type='submit' value='Submit'></input>
+            <button class='submit' type='submit'>Submit</button>
           </form>
         </div>
       </div>
@@ -46,4 +109,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default CustomerLogin

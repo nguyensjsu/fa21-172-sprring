@@ -2,7 +2,7 @@ import React, { Component, Fragment, useEffect } from 'react'
 import axios from 'axios'
 import '../styles/Login.css'
 
-class Home extends Component {
+class EmployeeLogin extends Component {
   constructor() {
     super()
   }
@@ -47,4 +47,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default EmployeeLogin
