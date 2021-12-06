@@ -101,6 +101,7 @@ public class CustomerController {
 
     //Get specific Customer with first and last name
     @GetMapping("/customer/{firstname}/{lastname}")
+    @CrossOrigin(origins = "*")
     Customer getActiveOrder(@PathVariable String firstname, @PathVariable String lastname, HttpServletResponse response) {
         Customer active = customers.get(firstname.concat(lastname));
         if (active != null) {
@@ -112,6 +113,7 @@ public class CustomerController {
 
     //Delete Customer
     @DeleteMapping("/customer/{firstname}/{lastname}")
+    @CrossOrigin(origins = "*")
     Message deleteActiveOrder(@PathVariable String regid) {
         Customer active = customers.get(Integer.parseInt(regid));
         if (active != null) {
@@ -126,6 +128,7 @@ public class CustomerController {
 
     //Customer Login
     @PostMapping("/login")
+    @CrossOrigin(origins = "*")
     String activate(@RequestBody Customer customer, HttpServletResponse response){
         Customer email = repository.findByEmail(customer.getEmail());
         if(email == null)
@@ -147,6 +150,7 @@ public class CustomerController {
 
     //Customer Logout
     @PostMapping("/logout")
+    @CrossOrigin(origins = "*")
     String logout(@RequestBody Customer customer, HttpServletResponse response){
         Customer email = repository.findByEmail(customer.getEmail());
         if(email.isLoggedIn()){
