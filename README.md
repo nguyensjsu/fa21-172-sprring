@@ -45,7 +45,7 @@ The REST API processes api calls to manage orders, customers, and cards, which w
 
 ## How to Run
 
-NOTE: Clone the entire repository to a folder on your local machine before following these steps. The following steps runs the application locally.
+NOTE: Clone the entire repository to a folder on your local machine before following these steps. The following steps runs the application locally. **ENSURE that Node.js is installed on your local machine.**
 
 ### Customer Microservice
 
