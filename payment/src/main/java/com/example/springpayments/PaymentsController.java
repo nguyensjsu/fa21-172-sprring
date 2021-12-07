@@ -17,11 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import ch.qos.logback.core.joran.conditional.ElseAction;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +36,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/")
 public class PaymentsController {
 
-    private static boolean DEBUG = true;
+    @Autowired
+    private PaymentsRepository respository;
+
+    PaymentsController(PaymentsRepository respository) {
+        this.respository = respository;
+    }
+
+    @GetMapping(value = "/payment/ping")
+    public String paymentHome() {
+        return "Welcome to payment";
+    }
 
     // variables to connect to CyberSource API
     @Value("${cybersource.apihost}")
@@ -49,9 +61,6 @@ public class PaymentsController {
     private String merchantsecretKey;
     @Value("${cybersource.merchantid}")
     private String merchantId;
-
-    @Autowired
-    private PaymentsRepository respository;
 
     private CyberSourceAPI api = new CyberSourceAPI();
 
@@ -141,16 +150,16 @@ public class PaymentsController {
         }
     }
 
-    @GetMapping
-    public String getAction(@ModelAttribute("command") PaymentsCommand command, Model model) {
-
-        model.addAttribute("message", "Hello World!");
-        return "creditcards";
-
+    // get all payments
+    @GetMapping("/payment")
+    @CrossOrigin(origins = "*")
+    public List<PaymentsCommand> getAction(@ModelAttribute("command") PaymentsCommand command, Model model) {
+        return respository.findAll();
     }
 
-    @PostMapping
-    public String postAction(@Valid @ModelAttribute("command") PaymentsCommand command,
+    @PostMapping("/payment/processpayment")
+    @CrossOrigin(origins = "*")
+    public String newPayment(@Valid @ModelAttribute("command") PaymentsCommand command,
             @RequestParam(value = "action", required = true) String action, Errors errors, Model model,
             HttpServletRequest request) {
 
