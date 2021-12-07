@@ -1,5 +1,17 @@
 # Rozanna's reports
 
+## Navigation
+ - [10/13](##10/13)
+ - [11/4](##11/4)
+ - [11/10](##11/10)
+ - [11/22](##11/22)
+ - [11/24](##11/24)
+ - [12/1](##12/1)
+ - [12/5](##12/5)
+ - [12/6](##12/6)
+ - [12/xx](##12/xx)
+ - *No fixed header-linking in README file, please use `Ctrl + F` to search.*
+
 ## 10/13
 formed dm group on discord for the team
 chose team name
@@ -81,3 +93,7 @@ run any backend folder:
 After signing up a new user, go to `http://localhost:8080/customers` to see the new customer that just signed up
 
 after logging in with new user account, should add routing to customer dashboard
+
+added Payment.js, Payment.css, payment form
+
+## 12/xx

@@ -28,7 +28,7 @@ class Payment extends Component {
         } 
     
         this.handleChange = this.handleChange.bind(this)
-        // this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
       }
 
     // sets the state when inputs in sign up form are filled
@@ -36,8 +36,35 @@ class Payment extends Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    // handle HTTP POST request when form is submitted
+    handleSubmit = e => {
+        e.preventDefault()
+        console.log(this.state)
+        axios.post('http://localhost:8080/payment/processpayment', this.state).then(response => {
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     render()
     {
+        const {
+            firstname,
+            lastname,
+            address,
+            city,
+            state,
+            zip,
+            phonenumber,
+            cardnumber,
+            expmonth,
+            expyear,
+            cvv,
+            email,
+            notes
+        } = this.state
+
         // display the payment form
         return (
             <div>
