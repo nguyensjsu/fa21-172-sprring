@@ -96,4 +96,6 @@ after logging in with new user account, should add routing to customer dashboard
 
 added Payment.js, Payment.css, payment form
 
+need to change Menu.js to pull drink data instead of hardcoding the drink data, so that other components can pull it
+
 ## 12/xx
