@@ -9,6 +9,7 @@ import Menu from './pages/Menu'
 import CustomerDashboard from './pages/CustomerDashboard'
 import EmployeeDashboard from './pages/EmployeeDashboard'
 import EmployeeLogin from './pages/EmployeeLogin'
+import Payment from './pages/Payment'
 // import css for App.js
 import './App.css'
 
@@ -55,6 +56,11 @@ function App() {
           <Switch>
             <Route path='/employeedashboard'>
               <EmployeeDashboard />
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path="/payment">
+              <Payment />
             </Route>
           </Switch>
         </div>

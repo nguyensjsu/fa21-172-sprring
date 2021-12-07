@@ -67,11 +67,11 @@ NOTE: Clone the entire repository to a folder on your local machine before follo
 
 ### Front Office
 
-1. Open the repository folder, navigate to `\fa21-172-sprring\Frontend-Shay\`, and open a terminal at this location.
+1. Open the repository folder, navigate to `\fa21-172-sprring\frontend\`, and open a terminal at this location.
 
 2. Run the command `npm install` (NOTE: you can skip warnings and npm audit).
 
-3. In the terminal, navigate to `\fa21-172-sprring\Frontend-Shay\my-app\`, and ru the command `npm install` (NOTE: you can skip warnings and npm audit).
+3. In the terminal, navigate to `\fa21-172-sprring\frontend\my-app\`, and ru the command `npm install` (NOTE: you can skip warnings and npm audit).
 
 4. In the terminal, run the command `npm start` to run the front-end app on the link [http://localhost:3000](http://localhost:3000)
 

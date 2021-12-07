@@ -61,3 +61,23 @@ worked on payment/ folder on changing lab 7 material into a rest api
 prioritizing what can be done in the limited time the team has left (20 hours left)
 
 ## 12/6
+group meeting
+tried to piece together the project
+gave demo, got feedback that only 5% was done
+decided to keep working on it till Friday 12/10
+    - need to ping prof about availability to demo again
+    - want to ask if can also demo next Friday 12/17 if not enough progress shown by this friday
+
+run frontend:
+    - cd `\fa21-172-sprring\frontend\my-app\`
+    - run `npm install`
+    - cd `\fa21-172-sprring\frontend\`
+    - run `npm install`
+run any backend folder:
+    - cd `\fa21-172-sprring\[FOLDER NAME]\`
+    - run `gradle build`
+    - run `gradle bootRun`
+
+After signing up a new user, go to `http://localhost:8080/customers` to see the new customer that just signed up
+
+after logging in with new user account, should add routing to customer dashboard
