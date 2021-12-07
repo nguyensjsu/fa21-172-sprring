@@ -22,7 +22,7 @@ class EmployeeLogin extends Component {
 
   // handles what wil happen when page is first loaded
   componentDidMount() {
-    axios.get('https:localhost:8080/customers')
+    axios.get('http://localhost:8080/customers')
     .then(response => {
       console.log(response)
     })

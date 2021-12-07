@@ -20,6 +20,3 @@ spec:
         image: nhutnguyen5691/customer-api
         ports:
         - containerPort: 8080
-        env:
-            -name: MYSQL_HOST
-            value: "10:.107.192.4"

@@ -6,7 +6,7 @@ import '../styles/SignUp.css'
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/customers',
+  baseURL: 'http://34.72.123.63/api/customers?apikey=Zkfokey2311',
 })
 
 class SignUp extends Component {
