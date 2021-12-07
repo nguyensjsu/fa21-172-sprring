@@ -6,3 +6,8 @@
 body {
     margin: 0;
 }
+
+.payment-form {
+    display: flex;
+    justify-content: space-around;
+}
