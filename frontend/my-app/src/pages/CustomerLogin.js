@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useEffect } from 'react'
 // allow for links to other webpages
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import '../styles/Login.css'
 
@@ -13,8 +13,8 @@ class CustomerLogin extends Component {
       lastname: '',
       username: '',
       email: '',
-      password: ''
-    } 
+      password: '',
+    }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,42 +22,37 @@ class CustomerLogin extends Component {
 
   // handles what wil happen when page is first loaded
   componentDidMount() {
-    axios.get('http://localhost:8080/customers')
-    .then(response => {
-      console.log(response)
-    })
-    .catch(error => {
-      console.log(error)
-    }) 
+    axios
+      .get('http://localhost:8090/customers')
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   // sets the state when inputs in sign up form are filled
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
   // handles POST request when form is submitted
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault()
     console.log(this.state)
-    axios.post('http://localhost:8080/login', this.state)
-      .then(response => {
+    axios
+      .post('http://localhost:8090/login', this.state)
+      .then((response) => {
         console.log(response)
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       })
   }
 
   render() {
-
-    const {
-      firstname,
-      lastname,
-      username,
-      email,
-      password,
-    } = this.state
+    const { firstname, lastname, username, email, password } = this.state
 
     // redirect if logged in
     // if(isAuthenticated)
@@ -70,11 +65,14 @@ class CustomerLogin extends Component {
       <div class='wrapper'>
         <div class='menuContent'>
           <h2>Customer Login</h2>
-          <form onSubmit={this.handleSubmit} action={<Link to='/customerdashboard'>Home</Link>}>
+          <form
+            onSubmit={this.handleSubmit}
+            action={<Link to='/customerdashboard'>Home</Link>}
+          >
             <label for='username'>E-mail:</label>
             <br></br>
             <input
-              onChange={this.handleChange} 
+              onChange={this.handleChange}
               type='email'
               id='email'
               name='email'
@@ -88,7 +86,7 @@ class CustomerLogin extends Component {
             <label for='password'>Password:</label>
             <br></br>
             <input
-              onChange={this.handleChange} 
+              onChange={this.handleChange}
               type='password'
               id='password'
               name='password'
@@ -101,7 +99,9 @@ class CustomerLogin extends Component {
 
             <br></br>
 
-            <button class='submit' type='submit'>Submit</button>
+            <button class='submit' type='submit'>
+              Submit
+            </button>
           </form>
         </div>
       </div>
