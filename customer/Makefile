@@ -6,11 +6,11 @@ clean:
 	docker rm kong 
 	docker stop kong-database
 	docker rm kong-database
-	docker stop starbucks-api
-	docker rm starbucks-api
+	docker stop customer-api
+	docker rm customer-api
 
 docker-shell:
-	docker exec -it starbucks bash 
+	docker exec -it customer bash 
 
 kong-shell:
 	docker exec -it kong bash 
@@ -21,8 +21,8 @@ network-create:
 network-inspect:
 	docker network inspect kong-network
 
-starbucks-api:	
-	docker run -d --name starbucks-api --network kong-network -td spring-starbucks-api
+customer-api:	
+	docker run -d --name customer-api --network kong-network -td spring-customer-api
 
 jumpbox:
 	docker run --name jumpbox --network kong-network -td ubuntu

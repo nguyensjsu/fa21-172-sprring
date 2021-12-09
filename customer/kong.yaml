@@ -1,9 +1,9 @@
 _format_version: "1.1"
 
 services:
-- name: starbucks
+- name: customer
   protocol: http
-  host: starbucks-api
+  host: customer-api
   port: 8080
   path: /
   plugins:
