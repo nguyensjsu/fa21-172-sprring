@@ -2,25 +2,25 @@
 version: "3"
 
 services:
-  purchases:
-    image: gongcha-purchases
+  payments:
+    image: gongcha-payments
     volumes:
       - /tmp:/tmp
     networks:
       - network
     ports:
-      - 8080
+      - 8070
     restart: always
   lb:
     image: eeacms/haproxy
     depends_on:
-      - purchases
+      - payments
     ports:
       - "80:5000"
       - "1936:1936"
     environment:
-      BACKENDS: "purchases"
-      BACKENDS_PORT: "8080"
+      BACKENDS: "payments"
+      BACKENDS_PORT: "8070"
       DNS_ENABLED: "true"
       COOKIES_ENABLED: "false"
       LOG_LEVEL: "info"
@@ -30,7 +30,7 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: 'purchases-db'
+      MYSQL_DATABASE: 'payments-db'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'

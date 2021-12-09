@@ -18,27 +18,28 @@ class SignUp extends Component {
       lastname: '',
       username: '',
       email: '',
-      password: ''
-    } 
+      password: '',
+    }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   // sets the state when inputs in sign up form are filled
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
   // handles POST request when form is submitted
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault()
     console.log(this.state)
-    axios.post('http://localhost:8080/customers/register', this.state)
-      .then(response => {
+    axios
+      .post('http://localhost:8090/customers/register', this.state)
+      .then((response) => {
         console.log(response)
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error)
       })
   }
@@ -71,13 +72,7 @@ class SignUp extends Component {
   // }
 
   render() {
-    const {
-      firstname,
-      lastname,
-      username,
-      email,
-      password,
-    } = this.state
+    const { firstname, lastname, username, email, password } = this.state
 
     return (
       /*main content*/
@@ -93,27 +88,29 @@ class SignUp extends Component {
           <form onSubmit={this.handleSubmit}>
             <label for='firstname'>First name:</label>
             <br />
-            <input 
-              onChange={this.handleChange} 
-              id='firstname' 
-              type='text'  
-              name='firstname' 
-              placeholder='John' 
+            <input
+              onChange={this.handleChange}
+              id='firstname'
+              type='text'
+              name='firstname'
+              placeholder='John'
               value={firstname}
-              size='70' />
+              size='70'
+            />
             <br />
             <br />
 
             <label for='lastname'>Last name:</label>
             <br />
-            <input 
-              onChange={this.handleChange} 
-              id='lastname' 
-              type='text'  
-              name='lastname' 
-              placeholder='Doe' 
+            <input
+              onChange={this.handleChange}
+              id='lastname'
+              type='text'
+              name='lastname'
+              placeholder='Doe'
               value={lastname}
-              size='70' />
+              size='70'
+            />
             <br />
             <br />
 
@@ -134,7 +131,7 @@ class SignUp extends Component {
             <label for='email'>E-mail:</label>
             <br />
             <input
-              onChange={this.handleChange} 
+              onChange={this.handleChange}
               type='email'
               id='email'
               name='email'
@@ -145,10 +142,10 @@ class SignUp extends Component {
             <br />
             <br />
 
-            <label for='emial'>Password:</label>
+            <label for='email'>Password:</label>
             <br />
             <input
-              onChange={this.handleChange} 
+              onChange={this.handleChange}
               type='password'
               id='password'
               name='password'
@@ -160,7 +157,9 @@ class SignUp extends Component {
             <br />
             <br />
 
-            <button class='submit' type='submit'>Submit</button>
+            <button class='submit' type='submit'>
+              Submit
+            </button>
           </form>
         </div>
       </div>
