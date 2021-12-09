@@ -118,9 +118,15 @@ frontend creates order
 frontend passes order info to payment
 frontend receives payment confirmation
 
+customer buys 1 drink at a time
+
 plan to work with Shayanna to connect `payment/` to `frontend/`
 getAllPayments() returns error message or order number
     error message if an error occurred
     order number if payment was successfull
+
+meeting diagram - high level to low level
+
+![diagram.png](images/diagram.png)
 
 ## 12/xx
