@@ -162,10 +162,10 @@ public class CustomerController {
         return "Logout Successful";
     }
 
-    /**
+    
     //Reset password
     @PutMapping("/customer/{firstname}/{lastname}")
     Customer changePassword(@RequestBody Customer customer)
-    **/
+    
 
 }
