@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: spring-starbucks-api
+  name: customer-api
   namespace: default
   labels:
-    name: spring-starbucks-api
+    name: customer-api
 spec:
   containers:
-    - image: nhutnguyen5691/spring-starbucks-api
-      name: spring-starbucks-api
+    - image: nhutnguyen5691/customer-api
+      name: customer-api
       ports:
         - containerPort: 8080
           name: http
