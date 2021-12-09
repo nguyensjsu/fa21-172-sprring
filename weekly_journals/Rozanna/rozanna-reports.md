@@ -9,6 +9,7 @@
  - [12/1](##12/1)
  - [12/5](##12/5)
  - [12/6](##12/6)
+ - [12/8](##12/8)
  - [12/xx](##12/xx)
  - *No fixed header-linking in README file, please use `Ctrl + F` to search.*
 
@@ -73,7 +74,7 @@ worked on payment/ folder on changing lab 7 material into a rest api
 prioritizing what can be done in the limited time the team has left (20 hours left)
 
 ## 12/6
-group meeting
+group call to talk about the project
 tried to piece together the project
 gave demo, got feedback that only 5% was done
 decided to keep working on it till Friday 12/10
@@ -97,5 +98,29 @@ after logging in with new user account, should add routing to customer dashboard
 added Payment.js, Payment.css, payment form
 
 need to change Menu.js to pull drink data instead of hardcoding the drink data, so that other components can pull it
+
+## 12/8
+Wednesday
+group call to talk about the project
+scheduling to work on project and quizzes and final exam
+    - Friday - work on quiz part 2
+    - 
+
+add
+    - shopping cart / place to view what user wants to purchase
+        - how to add to cart?
+    - finish @RestControllers for 
+        - payment/
+        - order/
+
+start the order, pay the payment, set the order as paid, show order number to user
+frontend creates order
+frontend passes order info to payment
+frontend receives payment confirmation
+
+plan to work with Shayanna to connect `payment/` to `frontend/`
+getAllPayments() returns error message or order number
+    error message if an error occurred
+    order number if payment was successfull
 
 ## 12/xx

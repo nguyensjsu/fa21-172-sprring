@@ -153,7 +153,7 @@ public class PaymentsController {
     // get all payments
     @GetMapping("/payment")
     @CrossOrigin(origins = "*")
-    public List<PaymentsCommand> getAction(@ModelAttribute("command") PaymentsCommand command, Model model) {
+    public List<PaymentsCommand> getAllPayments(@ModelAttribute("command") PaymentsCommand command, Model model) {
         return respository.findAll();
     }
 
@@ -286,6 +286,7 @@ public class PaymentsController {
         // payment process
 
         // make a random order number
+        // get order number from purchase controller
         String orderNum = Integer.toString((int) Math.floor((Math.random() * 1000000) + 1));
 
         // create AuthRequest object
