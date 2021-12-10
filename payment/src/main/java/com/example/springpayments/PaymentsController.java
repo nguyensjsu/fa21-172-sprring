@@ -393,6 +393,8 @@ public class PaymentsController {
             log.info("Successful Payment: ", successMsg);
             return successMsg;
         }
+
+        return successMsg;
     }
 
 }
