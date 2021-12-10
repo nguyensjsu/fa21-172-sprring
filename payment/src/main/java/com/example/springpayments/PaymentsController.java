@@ -2,6 +2,8 @@ package com.example.springpayments;
 
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.net.InetAddress;
 import java.util.Optional;
 import java.time.*;
@@ -22,15 +24,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import ch.qos.logback.core.joran.conditional.ElseAction;
 import lombok.extern.slf4j.Slf4j;
 
 import com.example.springcybersource.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+
 import lombok.Getter;
 import lombok.Setter;
 import java.util.ArrayList;
@@ -162,18 +168,21 @@ public class PaymentsController {
     // get all payments
     @GetMapping("/payments")
     @CrossOrigin(origins = "*")
-    public List<PaymentsCommand> getAllPayments(@ModelAttribute("command") PaymentsCommand command, Model model) {
+    public List<PaymentsCommand> getAllPayments(@RequestBody PaymentsCommand command) {
         return respository.findAll();
     }
 
+    // create new payment
     @PostMapping("/payment/processpayment/{regid}/{cost}")
     @CrossOrigin(origins = "*")
-    public String newPayment(@Valid @ModelAttribute("command") PaymentsCommand command, @PathVariable String regid,
-            @PathVariable String cost, Errors errors, Model model,
-            HttpServletRequest request) {
+    public String newPayment(@RequestBody PaymentsCommand command,
+            @PathVariable String regid,
+            @PathVariable String cost,
+            Errors errors,
+            HttpServletResponse response) {
 
         // regid = order number
-        // cost = cost of drink
+        // cost = cost of order
 
         // set CyberSource variables
         CyberSourceAPI.setHost(apiHost);
@@ -233,12 +242,12 @@ public class PaymentsController {
         // leading 0 required
         String cardExpMonthInput = command.getExpmonth();
         boolean validExpMonth = false;
-        for (int i = 0; i < months.length; i++) {
+        for (int i = 1; i < months.length + 1; i++) {
             // ignore capitalization
-            if (cardExpMonthInput.equalsIgnoreCase(months[i])) {
+            if (cardExpMonthInput.equalsIgnoreCase(months[i - 1])) {
                 validExpMonth = true;
 
-                if (i < 10) {
+                if ((i - 1) < 10) {
                     command.setExpmonth("0" + Integer.toString(i));
                 } else {
                     command.setExpmonth(Integer.toString(i));
@@ -290,7 +299,8 @@ public class PaymentsController {
         if (errors.hasErrors()) {
             // errMsgs.print();
             // model.addAttribute("messages", errMsgs.getMessage());
-            return errMsgs.getAllMessages();
+            // return errMsgs.getAllMessages();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, errMsgs.getAllMessages());
         }
         // else {
         // model.addAttribute("message", "Thank you for your payment!");
@@ -332,7 +342,8 @@ public class PaymentsController {
             System.out.println(authResponseErrMsg);
             // model.addAttribute("message", authResponseErrMsg);
             log.info("AuthResponse Error: ", authResponseErrMsg);
-            return authResponseErrMsg;
+            // return authResponseErrMsg;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, authResponseErrMsg);
         }
 
         // capture data and receive response
@@ -355,7 +366,8 @@ public class PaymentsController {
                 System.out.println(captureResponseErrMsg);
                 // model.addAttribute("message", captureResponseErrMsg);
                 log.info("CaptureResponse Error: ", captureResponseErrMsg);
-                return captureResponseErrMsg;
+                // return captureResponseErrMsg;
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, captureResponseErrMsg);
             }
         }
 
@@ -381,10 +393,6 @@ public class PaymentsController {
             log.info("Successful Payment: ", successMsg);
             return successMsg;
         }
-
-        log.info("Command: " + command);
-
-        return successMsg;
     }
 
 }
