@@ -20,7 +20,6 @@ import javax.persistence.Table;
 class PaymentsCommand {
 
     private @Id @GeneratedValue Long id;
-    private String action;
     private String firstname;
     private String lastname;
 

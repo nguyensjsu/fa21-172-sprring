@@ -20,6 +20,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -148,20 +149,31 @@ public class PaymentsController {
                 System.out.println(m.msg);
             }
         }
+
+        public String getAllMessages() {
+            String allMessages = "";
+            for (Message message : messages) {
+                allMessages += message.msg + "\n";
+            }
+            return "";
+        }
     }
 
     // get all payments
-    @GetMapping("/payment")
+    @GetMapping("/payments")
     @CrossOrigin(origins = "*")
     public List<PaymentsCommand> getAllPayments(@ModelAttribute("command") PaymentsCommand command, Model model) {
         return respository.findAll();
     }
 
-    @PostMapping("/payment/processpayment")
+    @PostMapping("/payment/processpayment/{regid}/{cost}")
     @CrossOrigin(origins = "*")
-    public String newPayment(@Valid @ModelAttribute("command") PaymentsCommand command,
-            @RequestParam(value = "action", required = true) String action, Errors errors, Model model,
+    public String newPayment(@Valid @ModelAttribute("command") PaymentsCommand command, @PathVariable String regid,
+            @PathVariable String cost, Errors errors, Model model,
             HttpServletRequest request) {
+
+        // regid = order number
+        // cost = cost of drink
 
         // set CyberSource variables
         CyberSourceAPI.setHost(apiHost);
@@ -277,23 +289,20 @@ public class PaymentsController {
         // display errors OR success message
         if (errors.hasErrors()) {
             // errMsgs.print();
-            model.addAttribute("messages", errMsgs.getMessage());
-            return "creditcards";
-        } else {
-            model.addAttribute("message", "Thank you for your payment!");
+            // model.addAttribute("messages", errMsgs.getMessage());
+            return errMsgs.getAllMessages();
         }
+        // else {
+        // model.addAttribute("message", "Thank you for your payment!");
+        // }
 
         // payment process
-
-        // make a random order number
-        // get order number from purchase controller
-        String orderNum = Integer.toString((int) Math.floor((Math.random() * 1000000) + 1));
 
         // create AuthRequest object
         AuthRequest auth = new AuthRequest();
 
         // set all 16 fields
-        auth.reference = "Order Number: " + orderNum;
+        auth.reference = "Order Number: " + regid;
         auth.billToFirstName = command.getFirstname();
         auth.billToLastName = command.getLastname();
         auth.billToAddress = command.getAddress();
@@ -302,7 +311,7 @@ public class PaymentsController {
         auth.billToZipCode = command.getZip();
         auth.billToPhone = command.getPhonenumber();
         auth.billToEmail = command.getEmail();
-        auth.transactionAmount = "30.00";
+        auth.transactionAmount = cost;
         auth.transactionCurrency = "USD";
         auth.cardNumnber = command.getCardnumber();
         auth.cardExpMonth = command.getExpmonth();
@@ -321,8 +330,9 @@ public class PaymentsController {
         } else {
             String authResponseErrMsg = authResponse.status + ": " + authResponse.reason + "; " + authResponse.message;
             System.out.println(authResponseErrMsg);
-            model.addAttribute("message", authResponseErrMsg);
-            return "creditcards";
+            // model.addAttribute("message", authResponseErrMsg);
+            log.info("AuthResponse Error: ", authResponseErrMsg);
+            return authResponseErrMsg;
         }
 
         // capture data and receive response
@@ -330,7 +340,7 @@ public class PaymentsController {
         CaptureRequest capture = new CaptureRequest();
         CaptureResponse captureResponse = new CaptureResponse();
         if (authValid) {
-            capture.reference = "Order Number: " + orderNum;
+            capture.reference = "Order Number: " + regid;
             capture.paymentId = authResponse.id;
             capture.transactionAmount = "30.00";
             capture.transactionCurrency = "USD";
@@ -343,16 +353,18 @@ public class PaymentsController {
                 String captureResponseErrMsg = captureResponse.status + ": " + captureResponse.reason + "; "
                         + captureResponse.message;
                 System.out.println(captureResponseErrMsg);
-                model.addAttribute("message", captureResponseErrMsg);
-                return "creditcards";
+                // model.addAttribute("message", captureResponseErrMsg);
+                log.info("CaptureResponse Error: ", captureResponseErrMsg);
+                return captureResponseErrMsg;
             }
         }
 
+        String successMsg = "";
         // if auth and capture are successful
         if (authValid && captureValid) {
             // set PaymentsCommand vars for executing CyberSource payments
-            command.setOrdernumber(orderNum);
-            command.setTransactionamount("30.00");
+            command.setOrdernumber(regid);
+            command.setTransactionamount(cost);
             command.setTransactioncurrency("USD");
             command.setAuthid(authResponse.id);
             command.setAuthstatus(authResponse.status);
@@ -363,15 +375,16 @@ public class PaymentsController {
             respository.save(command);
 
             // print success message
-            String successMsg = "Thank you for your payment! Your order number is: " + orderNum;
+            successMsg = "Thank you for your payment! Your order number is: " + regid;
             System.out.println(successMsg);
-            model.addAttribute("message", successMsg);
+            // model.addAttribute("message", successMsg);
+            log.info("Successful Payment: ", successMsg);
+            return successMsg;
         }
 
-        log.info("Action: " + action);
         log.info("Command: " + command);
 
-        return "creditcards";
+        return successMsg;
     }
 
 }
