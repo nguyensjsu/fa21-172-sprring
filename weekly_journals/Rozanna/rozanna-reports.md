@@ -10,6 +10,7 @@
  - [12/5](##12/5)
  - [12/6](##12/6)
  - [12/8](##12/8)
+ - [12/10](##12/10)
  - [12/xx](##12/xx)
  - *No fixed header-linking in README file, please use `Ctrl + F` to search.*
 
@@ -128,5 +129,15 @@ getAllPayments() returns error message or order number
 meeting diagram - high level to low level
 
 ![diagram.png](images/diagram.png)
+
+## 12/10
+worked on PaymentsController with Nhu and Shayanna
+
+got PaymentsController working and tested on Postman with Nhu
+
+got PaymentsController connected with frontend with Shayanna
+
+just have order/ left and then we're done!!!
+
 
 ## 12/xx
