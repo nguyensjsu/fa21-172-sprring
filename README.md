@@ -75,6 +75,8 @@ NOTE: Clone the entire repository to a folder on your local machine before follo
 
 4. In the terminal, run the command `npm start` to run the front-end app on the link [http://localhost:3000](http://localhost:3000)
 
+NOTE: You will have 4 different terminals open
+
 # ==========================================
 
 ## Reports

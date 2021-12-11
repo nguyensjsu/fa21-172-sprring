@@ -173,11 +173,9 @@ public class PaymentsController {
     }
 
     // create new payment
-    @PostMapping("/payment/processpayment/{regid}/{cost}")
+    @PostMapping("/payment/processpayment")
     @CrossOrigin(origins = "*")
     public String newPayment(@RequestBody PaymentsCommand command,
-            @PathVariable String regid,
-            @PathVariable String cost,
             Errors errors,
             HttpServletResponse response) {
 
@@ -312,7 +310,7 @@ public class PaymentsController {
         AuthRequest auth = new AuthRequest();
 
         // set all 16 fields
-        auth.reference = "Order Number: " + regid;
+        auth.reference = "Order Number: " + command.getOrdernumber();
         auth.billToFirstName = command.getFirstname();
         auth.billToLastName = command.getLastname();
         auth.billToAddress = command.getAddress();
@@ -321,7 +319,7 @@ public class PaymentsController {
         auth.billToZipCode = command.getZip();
         auth.billToPhone = command.getPhonenumber();
         auth.billToEmail = command.getEmail();
-        auth.transactionAmount = cost;
+        auth.transactionAmount = command.getTransactionamount();
         auth.transactionCurrency = "USD";
         auth.cardNumnber = command.getCardnumber();
         auth.cardExpMonth = command.getExpmonth();
@@ -351,9 +349,9 @@ public class PaymentsController {
         CaptureRequest capture = new CaptureRequest();
         CaptureResponse captureResponse = new CaptureResponse();
         if (authValid) {
-            capture.reference = "Order Number: " + regid;
+            capture.reference = "Order Number: " + command.getOrdernumber();
             capture.paymentId = authResponse.id;
-            capture.transactionAmount = "30.00";
+            capture.transactionAmount = command.getTransactionamount();
             capture.transactionCurrency = "USD";
             System.out.println("\n\nCapture Request: " + capture.toJson());
             captureResponse = api.capture(capture);
@@ -375,8 +373,8 @@ public class PaymentsController {
         // if auth and capture are successful
         if (authValid && captureValid) {
             // set PaymentsCommand vars for executing CyberSource payments
-            command.setOrdernumber(regid);
-            command.setTransactionamount(cost);
+            command.setOrdernumber(command.getOrdernumber());
+            command.setTransactionamount(command.getTransactionamount());
             command.setTransactioncurrency("USD");
             command.setAuthid(authResponse.id);
             command.setAuthstatus(authResponse.status);
@@ -387,12 +385,14 @@ public class PaymentsController {
             respository.save(command);
 
             // print success message
-            successMsg = "Thank you for your payment! Your order number is: " + regid;
+            successMsg = "Thank you for your payment! Your order number is: " + command.getOrdernumber();
             System.out.println(successMsg);
             // model.addAttribute("message", successMsg);
             log.info("Successful Payment: ", successMsg);
             return successMsg;
         }
+
+        return successMsg;
     }
 
 }
