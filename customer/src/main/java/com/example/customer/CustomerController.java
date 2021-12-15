@@ -180,7 +180,6 @@ public class CustomerController {
     @PostMapping("/customer/request/")
     @CrossOrigin(origins = "*")
     String requestPasswordChange(@RequestBody Customer customer, HttpServletResponse response) {
-        
         Customer cus = repository.findByEmail(customer.getEmail());
         //data from user
         String oldpassword = hmac_sha256(key, customer.getOldpassword());
