@@ -27,10 +27,10 @@ public class Customer {
     
     @Column(nullable=false) private String firstname;
     @Column(nullable=false) private String lastname;
-    // @Column(nullable=false) private String username;
     @Column(nullable=false) private String email;
     @Column(nullable=false) private String password;
     @Column(nullable=false) private boolean loggedIn;
+    private int oldpassword;
     private int rewardpoints;
 
 

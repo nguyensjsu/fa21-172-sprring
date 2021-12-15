@@ -162,6 +162,11 @@ public class CustomerController {
         return "Logout Successful";
     }
 
+
+    //Request password reset
+    @PostMapping("/customer/request/{newpassword}")
+    @CrossOrigin(origins = "*")
+    String requestPasswordChange()
     
     //Reset password
     @PutMapping("/customer/{firstname}/{lastname}")
