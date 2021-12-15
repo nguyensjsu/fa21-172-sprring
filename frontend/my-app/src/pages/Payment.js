@@ -1,4 +1,5 @@
-import React, { Component, Fragment, useEffect } from 'react'
+import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom';
 import axios from 'axios'
 import '../styles/Payment.css'
 
@@ -24,7 +25,9 @@ class Payment extends Component {
             expyear: '',
             cvv: '',
             email: '',
-            notes: ''
+            notes: '',
+            ordernumber: '888',
+            transactionamount: '8.88'
         } 
     
         this.handleChange = this.handleChange.bind(this)
@@ -40,9 +43,15 @@ class Payment extends Component {
     handleSubmit = e => {
         e.preventDefault()
         console.log(this.state)
-        axios.post('http://localhost:8080/payment/processpayment', this.state).then(response => {
+        axios.post('http://localhost:8070/payment/processpayment', this.state)
+        .then(response => {
             console.log(response)
-        }).catch(error => {
+            this.setState({
+                status: response.data
+            })
+            console.log(this.state)
+        })
+        .catch(error => {
             console.log(error)
         })
     }
@@ -65,10 +74,16 @@ class Payment extends Component {
             notes
         } = this.state
 
+        // redirect back to customer dashboard once payment goes through
+        if(this.state.status === 'Thank you for your payment! Your order number is: 888')
+        {
+            return <Redirect to="/customerdashboard" />
+        }
+
         // display the payment form
         return (
             <div>
-                <h2>hello world!</h2>
+                <h2>Order and Payment Information</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className='payment-form'>
                         <div>
@@ -78,59 +93,79 @@ class Payment extends Component {
                                 id='firstname'
                                 type='text'
                                 name='firstname'
-                                placeholder='John' />
+                                placeholder='John'
+                                size='50' />
                             <br />
+                            <br />
+
                             <label for="lastname">Last name: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='lastname'
                                 type='text'
                                 name='lastname'
-                                placeholder='Doe' />
+                                placeholder='Doe'
+                                size='50' />
                             <br />
+                            <br />
+
                             <label for="address">Address: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='address'
                                 type='text'
                                 name='address'
-                                placeholder='542 W. 15th Street' />
+                                placeholder='542 W. 15th Street'
+                                size='50' />
                             <br />
+                            <br />
+
                             <label for="city">City: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='city'
                                 type='text'
                                 name='city'
-                                placeholder='New York' />
+                                placeholder='New York'
+                                size='50' />
                             <br />
+                            <br />
+
                             <label for="state">State: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='state'
                                 type='text'
                                 name='state'
-                                placeholder='NY' />
+                                placeholder='NY'
+                                size='50' />
                             <br />
+                            <br />
+
                             <label for="zip">Zip code: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='zip'
                                 type='text'
                                 name='zip'
-                                placeholder='10001' />
+                                placeholder='10001'
+                                size='50' />
                             <br />
+                            <br />
+
                             <label for="phonenumber">Phone number: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='phonenumber'
                                 type='text'
                                 name='phonenumber'
-                                placeholder='(408) 123-0456' />
+                                placeholder='(408) 123-0456'
+                                size='50' />
+                            <br />
                             <br />
                         </div>
-                        
-                        <div>
+
+                        <div class='rightSide'>
                             {/* valid card information used as placeholders here */}
                             <label for="cardnumber">Card number: </label>
                             <br />
@@ -138,53 +173,70 @@ class Payment extends Component {
                                 id='cardnumber'
                                 type='text'
                                 name='cardnumber'
-                                placeholder='4622-9431-2701-3713' /> 
+                                placeholder='4622-9431-2501-3713'
+                                size='50' /> 
                             <br />
+                            <br />
+
                             <label for="expmonth">Expiration month: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='expmonth'
                                 type='text'
                                 name='expmonth'
-                                placeholder='December' /> 
+                                placeholder='December'
+                                size='50' /> 
                             <br />
+                            <br />
+
                             <label for="expyear">Expiration year: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='expyear'
                                 type='text'
                                 name='expyear'
-                                placeholder='2022' /> 
+                                placeholder='2022'
+                                size='50' /> 
                             <br />
-                            <label for="cvv">Cvv: </label>
+                            <br />
+
+                            <label for="cvv">CVV: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='cvv'
                                 type='text'
                                 name='cvv'
-                                placeholder='043' /> 
+                                placeholder='043'
+                                size='50' /> 
                             <br />
+                            <br />
+
                             <label for="email">Email: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='email'
                                 type='email'
                                 name='email'
-                                placeholder='john@example.com' /> 
+                                placeholder='john@example.com'
+                                size='50' /> 
                             <br />
+                            <br />
+
                             <label for="notes">Notes: </label>
                             <br />
                             <input onChange={this.handleChange}
                                 id='notes'
                                 type='text'
                                 name='notes'
-                                placeholder='special instructions' /> 
+                                placeholder='special instructions'
+                                
+                                size='50' /> 
                             <br />
                             <br />
                         </div>
                     </div>
 
-                    <button type='submit'>Submit</button>
+                    <button class='paymentSubmit' type='submit'>Submit</button>
                 </form>
             </div>
         )

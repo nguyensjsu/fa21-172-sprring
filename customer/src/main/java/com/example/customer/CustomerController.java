@@ -73,11 +73,22 @@ public class CustomerController {
         return repository.findAll();
     }
 
+    //Get all customers that has password request
+    @CrossOrigin(origins = "*")
+    List<Customer> allWithRequest() {
+        List<Customer> list;
+        for(Customer c: repository.findAll()) {
+            if(c.getHasPasswordRequest())
+                list.add(c);
+        }
+        return list;
+    }
+
     //Create new Customer with user's sign up info
     @PostMapping("/customers/register")
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin(origins = "*")
-    public Customer newCustomer(@RequestBody Customer customer, HttpServletResponse response) {
+    public String newCustomer(@RequestBody Customer customer, HttpServletResponse response) {
         //check if someone with provided first and last name already has an account
         if(customers.get(customer.getFirstname()+customer.getLastname()) != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Customer already has an account!");
@@ -100,7 +111,7 @@ public class CustomerController {
         customers.put(newCustomer.getFirstname() + newCustomer.getLastname(), newCustomer);
         
         repository.save(newCustomer);
-        return newCustomer;
+        return "Registration Successful";
     } 
 
     //Get specific Customer with first and last name
@@ -164,13 +175,34 @@ public class CustomerController {
 
 
     //Request password reset
-    @PostMapping("/customer/request/{newpassword}")
+    @PostMapping("/customer/request/")
     @CrossOrigin(origins = "*")
-    String requestPasswordChange()
+    String requestPasswordChange(@RequestBody Customer customer, String oldpassword, String newpassword, HttpServletResponse response) {
+        Customer cus = repository.findByEmail(customer.getEmail());
+        if (newpassword==null || newpassword.isEmpty() || newpassword.equals(" ")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input. Password must not be empty!");
+        }
+        if (newpassword.equals(cus.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "New password must be different from the current one!");
+        }
+        if (!oldpassword.equals(cus.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect current password input!");
+        }
+        else {
+            cus.setNewpassword(newpassword);
+            cus.setHasPasswordRequest(true);
+            repository.save(cus);
+            return "Password change requested.";
+        }
+
+    } 
     
-    //Reset password
-    @PutMapping("/customer/{firstname}/{lastname}")
-    Customer changePassword(@RequestBody Customer customer)
+    //Reset password, set hasPasswordRequest back to false
+    @PutMapping("/customer/approve-request")
+    @CrossOrigin(origins = "*")
+    String changePassword(@RequestBody Customer customer, HttpServletResponse response) {
+
+    }
     
 
 }

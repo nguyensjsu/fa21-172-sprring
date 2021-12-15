@@ -2,19 +2,15 @@ import React, { Component, Fragment, useEffect } from 'react'
 // allow for links to other webpages
 import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
-import '../styles/Login.css'
+import '../../styles/CustomerDashboard.css'
 
-class CustomerLogin extends Component {
+class Home extends Component {
   constructor() {
     super()
 
     this.state = {
-      firstname: '',
-      lastname: '',
-      username: '',
-      email: '',
-      password: '',
-      status: ''
+      oldpassword: '',
+      newpassword: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -30,7 +26,7 @@ class CustomerLogin extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     axios
-      .post('http://localhost:8090/login', this.state)
+      .post('http://localhost:8090/changePassword', this.state)
       .then((response) => {
         console.log(response)
         const {temp} = this.state
@@ -46,44 +42,42 @@ class CustomerLogin extends Component {
   }
 
   render() {
-    const { firstname, lastname, username, email, password } = this.state
+    const { oldpassword, newpassword } = this.state
 
-    // redirect if logged in
-    if(this.state.status === 'Login Successful')
-    {
-        return <Redirect to='/customerdashboard' />
-    }
+    return (
+        <div>
+          <div class='sectionTitle'>
+            <p>Request Password Change</p>
+          </div>
 
-    // otherwise, have user log in
-    else {
-      return (
-        <div class='wrapper'>
-          <div class='menuContent'>
-            <h2>Customer Login</h2>
-            <form onSubmit={this.handleSubmit}>
-              <label for='username'>E-mail:</label>
+          <div >
+            <form 
+              class='passChangeForm' 
+              onSubmit={this.handleSubmit}
+            >
+              <label for='oldpassword'>Current Password:</label>
               <br></br>
               <input
                 onChange={this.handleChange}
-                type='email'
-                id='email'
-                name='email'
-                placeholder='john@doe.com'
-                value={email}
+                type='password'
+                id='oldpassword'
+                name='oldpassword'
+                // placeholder='your current password'
+                value={oldpassword}
                 size='70'
               ></input>
               <br></br>
               <br></br>
 
-              <label for='password'>Password:</label>
+              <label for='newpassword'>New Password:</label>
               <br></br>
               <input
                 onChange={this.handleChange}
                 type='password'
-                id='password'
-                name='password'
-                placeholder='password'
-                value={password}
+                id='newpassword'
+                name='newpassword'
+                // placeholder='your new password'
+                value={newpassword}
                 size='70'
               ></input>
               <br></br>
@@ -96,10 +90,9 @@ class CustomerLogin extends Component {
               </button>
             </form>
           </div>
-        </div>
-      )
-    }
+      </div>
+    )
   }
 }
 
-export default CustomerLogin
+export default Home
