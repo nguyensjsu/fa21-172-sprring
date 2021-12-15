@@ -181,6 +181,8 @@ public class CustomerController {
     @CrossOrigin(origins = "*")
     String requestPasswordChange(@RequestBody Customer customer, String oldpassword, String newpassword, HttpServletResponse response) {
         Customer cus = repository.findByEmail(customer.getEmail());
+        oldpassword = hmac_sha256(key, oldpassword);
+        newpassword = hmac_sha256(key, newpassword);
         if (newpassword==null || newpassword.isEmpty() || newpassword.equals(" ")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input. Password must not be empty!");
         }
@@ -191,8 +193,7 @@ public class CustomerController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect current password input!");
         }
         else {
-            String hashString = hmac_sha256(key, newpassword);
-            cus.setNewpassword(hashString);
+            cus.setNewpassword(newpassword);
             cus.setHasPasswordRequest(true);
             repository.save(cus);
             return "Password change requested.";

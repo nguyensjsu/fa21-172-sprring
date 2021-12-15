@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 // import css
 import '../styles/SignUp.css'
 
@@ -39,6 +39,12 @@ class SignUp extends Component {
       .post('http://localhost:8090/customers/register', this.state)
       .then((response) => {
         console.log(response)
+        const {temp} = this.state
+        this.setState({
+          ...temp,
+          status: response.data
+        })
+        console.log(this.state)
       })
       .catch((error) => {
         console.log(error)
@@ -74,6 +80,12 @@ class SignUp extends Component {
 
   render() {
     const { firstname, lastname, username, email, password } = this.state
+
+    // redirect if registration successful 
+    if(this.state.status === 'Registration Successful')
+    {
+        return <Redirect to='/customerlogin' />
+    }
 
     return (
       /*main content*/

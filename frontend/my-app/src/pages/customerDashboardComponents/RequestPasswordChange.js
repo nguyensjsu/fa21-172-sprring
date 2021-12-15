@@ -9,12 +9,31 @@ class Home extends Component {
     super()
 
     this.state = {
-      oldpassword: '',
-      newpassword: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:8090/customers')
+      .then(response => {
+        console.log(response)
+        response.data.forEach(customer => {
+          if(customer.loggedIn) {
+            this.setState({
+              customer: customer,
+              oldpassword: '',
+              newpassword: '',
+              email: '',
+            })
+          }
+        })
+        console.log(this.state)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   // sets the state when inputs in sign up form are filled
@@ -25,8 +44,9 @@ class Home extends Component {
   // handles POST request when form is submitted
   handleSubmit = (e) => {
     e.preventDefault()
+    console.log(this.state)
     axios
-      .post('http://localhost:8090/changePassword', this.state)
+      .post('http://localhost:8090/customer/request/', this.state)
       .then((response) => {
         console.log(response)
         const {temp} = this.state
@@ -42,7 +62,9 @@ class Home extends Component {
   }
 
   render() {
-    const { oldpassword, newpassword } = this.state
+    const { oldpassword, newpassword, email } = this.state
+
+
 
     return (
         <div>
@@ -55,6 +77,20 @@ class Home extends Component {
               class='passChangeForm' 
               onSubmit={this.handleSubmit}
             >
+              <label for='email'>E-mail:</label>
+              <br></br>
+              <input
+                onChange={this.handleChange}
+                type='email'
+                id='email'
+                name='email'
+                // placeholder='your current password'
+                value={email}
+                size='70'
+              ></input>
+              <br></br>
+              <br></br>
+
               <label for='oldpassword'>Current Password:</label>
               <br></br>
               <input
