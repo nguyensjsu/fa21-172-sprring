@@ -3,7 +3,7 @@ import axios from 'axios'
 import '../styles/EmployeeDashboard.css'
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/customers'
+  baseURL: 'http://localhost:8090/customers'
 })
 
 class Home extends Component {

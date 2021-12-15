@@ -20,17 +20,6 @@ class EmployeeLogin extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  // handles what wil happen when page is first loaded
-  componentDidMount() {
-    axios.get('http://localhost:8080/customers')
-    .then(response => {
-      console.log(response)
-    })
-    .catch(error => {
-      console.log(error)
-    }) 
-  }
-
   // sets the state when inputs in sign up form are filled
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value })
@@ -40,13 +29,19 @@ class EmployeeLogin extends Component {
   handleSubmit = e => {
     e.preventDefault()
     console.log(this.state)
-    axios.post('http://localhost:8080/login', this.state)
-      .then(response => {
-        console.log(response)
+    axios.post('http://localhost:8090/login', this.state)
+    .then((response) => {
+      console.log(response)
+      const {temp} = this.state
+      this.setState({
+        ...temp,
+        status: response.data
       })
-      .catch(error => {
-        console.log(error)
-      })
+      console.log(this.state)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   }
 
   render() {
@@ -60,10 +55,10 @@ class EmployeeLogin extends Component {
     } = this.state
 
     // redirect if logged in
-    // if(isAuthenticated)
-    // {
-    //     return <Redirect to='/dashboard' />
-    // }
+    if(this.state.status === 'Login Successful')
+    {
+        return <Redirect to='/employeedashboard' />
+    }
 
     // otherwise, have user log in
     return (
