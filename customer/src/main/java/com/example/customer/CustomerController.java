@@ -179,10 +179,13 @@ public class CustomerController {
     //Request password reset
     @PostMapping("/customer/request/")
     @CrossOrigin(origins = "*")
-    String requestPasswordChange(@RequestBody Customer customer, String oldpassword, String newpassword, HttpServletResponse response) {
+    String requestPasswordChange(@RequestBody Customer customer, HttpServletResponse response) {
+        
         Customer cus = repository.findByEmail(customer.getEmail());
-        oldpassword = hmac_sha256(key, oldpassword);
-        newpassword = hmac_sha256(key, newpassword);
+        //data from user
+        String oldpassword = hmac_sha256(key, customer.getOldpassword());
+        String newpassword = hmac_sha256(key, customer.getNewpassword());
+        //data from user
         if (newpassword==null || newpassword.isEmpty() || newpassword.equals(" ")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid input. Password must not be empty!");
         }
