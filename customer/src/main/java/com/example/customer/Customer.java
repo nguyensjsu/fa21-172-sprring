@@ -30,9 +30,12 @@ public class Customer {
     @Column(nullable=false) private String email;
     @Column(nullable=false) private String password;
     @Column(nullable=false) private boolean loggedIn;
-    private int newpassword;
+    private String newpassword;
     private boolean hasPasswordRequest = false;
     private int rewardpoints;
 
+    public boolean getHasPasswordRequest() {
+        return this.hasPasswordRequest;
+    }
 
 }

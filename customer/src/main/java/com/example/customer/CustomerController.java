@@ -4,6 +4,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.crypto.Mac;
@@ -74,14 +75,15 @@ public class CustomerController {
     }
 
     //Get all customers that has password request
+    @GetMapping("/customers/requests")
     @CrossOrigin(origins = "*")
     List<Customer> allWithRequest() {
-        List<Customer> list;
+        List<Customer> requestList = new ArrayList<Customer>();
         for(Customer c: repository.findAll()) {
             if(c.getHasPasswordRequest())
-                list.add(c);
+                requestList.add(c);
         }
-        return list;
+        return requestList;
     }
 
     //Create new Customer with user's sign up info
@@ -189,20 +191,27 @@ public class CustomerController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect current password input!");
         }
         else {
-            cus.setNewpassword(newpassword);
+            String hashString = hmac_sha256(key, newpassword);
+            cus.setNewpassword(hashString);
             cus.setHasPasswordRequest(true);
             repository.save(cus);
             return "Password change requested.";
         }
 
     } 
-    
+
+
     //Reset password, set hasPasswordRequest back to false
     @PutMapping("/customer/approve-request")
     @CrossOrigin(origins = "*")
     String changePassword(@RequestBody Customer customer, HttpServletResponse response) {
-
+        Customer cus = repository.findByEmail(customer.getEmail());
+        cus.setPassword(cus.getNewpassword());
+        cus.setNewpassword("");
+        cus.setHasPasswordRequest(false);
+        repository.save(cus);
+        return "Password for " + cus.getFirstname() + " " + cus.getLastname() + " successfully changed"; 
     }
-    
+      
 
 }
