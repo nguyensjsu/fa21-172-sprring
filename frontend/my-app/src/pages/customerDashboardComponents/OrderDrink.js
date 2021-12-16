@@ -14,7 +14,7 @@ class Home extends Component {
     this.state = {
       drink: '',
       milk: '',
-      drinkSize: ''
+      drinkSize: '',
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -30,15 +30,15 @@ class Home extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     axios
-      .post('http://localhost:8090/changePassword', this.state)
+      .post('http://localhost:8090/order/register', this.state)
       .then((response) => {
         console.log(response)
-        // const {temp} = this.state
-        // this.setState({
-        //   ...temp,
-        //   status: response.data
-        // })
-        // console.log(this.state)
+        const { temp } = this.state
+        this.setState({
+          ...temp,
+          status: response.data,
+        })
+        console.log(this.state)
       })
       .catch((error) => {
         console.log(error)
@@ -49,155 +49,131 @@ class Home extends Component {
     const { drink, nilk, drinkSize } = this.state
 
     return (
-        <div>
-          <div class='sectionTitle'>
-            <p>Order Here</p>
-          </div>
+      <div>
+        <div class='sectionTitle'>
+          <p>Order Here</p>
+        </div>
 
-          {/* Green Tea */}  
-          <div class='menuItem'>
-            <img class='menuItemImage' src={greenTeaImg} alt='Green Tea'></img>
-            <div class='menuDetails'>
-              <h3 class='menuItemName'>Green Tea</h3>
-              <form action='/action_page.php'>
-
-                {/* Drink Size */}  
-                <p>Drink size:</p> 
-                <input
-                  type='radio'
-                  id='drinkSize'
-                  name='drinkSize'
-                  value='Medium'
-                ></input>
-                  <label>Medium $4.00</label>
-                <input
-                  type='radio'
-                  id='drinkSize'
-                  name='drinkSize'
-                  value='Large'
-                ></input>
-                  <label>Large $5.00</label>
-                <br></br>
-
-                {/* Milk Options */}
-                <p>Milk/no milk:</p> 
-                <input
-                  type='radio'
-                  id='milk'
-                  name='milk'
-                  value='milk'
-                ></input>
-                  <label>Milk</label>
-                <input
-                  type='radio'
-                  id='milk'
-                  name='milk'
-                  value='nomilk'
-                ></input>
-                  <label>No milk</label>
-                <br></br>
-                <br></br>
-                <input type='button' value='Buy now!'></input>
-              </form>
-            </div>
-          </div>
-
-          {/* Black Tea */}  
-          <div class='menuItem'>
-            <img class='menuItemImage' src={blackTeaImg} alt='Black Tea'></img>
-            <div class='menuDetails'>
-              <h3 class='menuItemName'>Black Tea</h3>
-              <form action='/action_page.php'>
-
-                {/* Drink Size */}    
-                <p>Drink size:</p> 
-                <input
-                  type='radio'
-                  id='drinkSize'
-                  name='drinkSize'
-                  value='Medium'
-                ></input>
-                  <label>Medium $4.25</label> 
-                <input
-                  type='radio'
-                  id='drinkSize'
-                  name='drinkSize'
-                  value='Large'
-                ></input>
-                  <label>Large $5.00</label>
-                <br></br>
-
-                {/* Milk Options */}                
-                <p>Milk/no milk:</p> 
-                <input
-                  type='radio'
-                  id='milk'
-                  name='milk'
-                  value='milk'
-                ></input>
-                  <label>Milk</label>
-                <input
-                  type='radio'
-                  id='milk'
-                  name='milk'
-                  value='nomilk'
-                ></input>
-                  <label>No milk</label>
-                <br></br>
-                <br></br>
-                <input type='button' value='Buy now!'></input>
-              </form>
-            </div>
-          </div>
-
-          {/* Thai Tea */}  
-          <div class='menuItem'>
-            <img class='menuItemImage' src={thaiTeaImg} alt='Thai Tea'></img>
-            <div class='menuDetails'>
-              <h3 class='menuItemName'>Thai Tea</h3>
-              <form action='/action_page.php'>
-
-                {/* Drink Size */}    
-                <p>Drink size:</p> 
-                <input
-                  type='radio'
-                  id='drinkSize'
-                  name='drinkSize'
-                  value='Medium'
-                ></input>
-                  <label>Medium $4.50</label> 
-                <input
-                  type='radio'
-                  id='drinkSize'
-                  name='drinkSize'
-                  value='Large'
-                ></input>
-                  <label>Large $5.00</label>
-                <br></br>
-
-                {/* Milk Options */}
-                <p>Milk/no milk:</p> 
-                <input
-                  type='radio'
-                  id='milk'
-                  name='milk'
-                  value='milk'
-                ></input>
-                  <label>Milk</label>
-                <input
-                  type='radio'
-                  id='milk'
-                  name='milk'
-                  value='nomilk'
-                ></input>
-                  <label>No milk</label>
-                <br></br>
-                <br></br>
-                <input type='button' value='Buy now!'></input>
-              </form>
-            </div>
+        {/* Green Tea */}
+        <div class='menuItem'>
+          <img class='menuItemImage' src={greenTeaImg} alt='Green Tea'></img>
+          <div class='menuDetails'>
+            <h3 class='menuItemName'>Green Tea</h3>
+            <form action='/action_page.php'>
+              {/* Drink Size */}
+              <p>Drink size:</p> 
+              <input
+                type='radio'
+                id='drinkSize'
+                name='drinkSize'
+                value='Medium'
+              ></input>
+                <label>Medium $4.00</label>
+              <input
+                type='radio'
+                id='drinkSize'
+                name='drinkSize'
+                value='Large'
+              ></input>
+                <label>Large $5.00</label>
+              <br></br>
+              {/* Milk Options */}
+              <p>Milk/no milk:</p> 
+              <input type='radio' id='milk' name='milk' value='milk'></input> {' '}
+              <label>Milk</label>
+              <input
+                type='radio'
+                id='milk'
+                name='milk'
+                value='nomilk'
+              ></input>  <label>No milk</label>
+              <br></br>
+              <br></br>
+              <input type='button' value='Buy now!'></input>
+            </form>
           </div>
         </div>
+
+        {/* Black Tea */}
+        <div class='menuItem'>
+          <img class='menuItemImage' src={blackTeaImg} alt='Black Tea'></img>
+          <div class='menuDetails'>
+            <h3 class='menuItemName'>Black Tea</h3>
+            <form action='/action_page.php'>
+              {/* Drink Size */}
+              <p>Drink size:</p> 
+              <input
+                type='radio'
+                id='drinkSize'
+                name='drinkSize'
+                value='Medium'
+              ></input>
+                <label>Medium $4.25</label> 
+              <input
+                type='radio'
+                id='drinkSize'
+                name='drinkSize'
+                value='Large'
+              ></input>
+                <label>Large $5.00</label>
+              <br></br>
+              {/* Milk Options */}
+              <p>Milk/no milk:</p> 
+              <input type='radio' id='milk' name='milk' value='milk'></input> {' '}
+              <label>Milk</label>
+              <input
+                type='radio'
+                id='milk'
+                name='milk'
+                value='nomilk'
+              ></input>  <label>No milk</label>
+              <br></br>
+              <br></br>
+              <input type='button' value='Buy now!'></input>
+            </form>
+          </div>
+        </div>
+
+        {/* Thai Tea */}
+        <div class='menuItem'>
+          <img class='menuItemImage' src={thaiTeaImg} alt='Thai Tea'></img>
+          <div class='menuDetails'>
+            <h3 class='menuItemName'>Thai Tea</h3>
+            <form action='/action_page.php'>
+              {/* Drink Size */}
+              <p>Drink size:</p> 
+              <input
+                type='radio'
+                id='drinkSize'
+                name='drinkSize'
+                value='Medium'
+              ></input>
+                <label>Medium $4.50</label> 
+              <input
+                type='radio'
+                id='drinkSize'
+                name='drinkSize'
+                value='Large'
+              ></input>
+                <label>Large $5.00</label>
+              <br></br>
+              {/* Milk Options */}
+              <p>Milk/no milk:</p> 
+              <input type='radio' id='milk' name='milk' value='milk'></input> {' '}
+              <label>Milk</label>
+              <input
+                type='radio'
+                id='milk'
+                name='milk'
+                value='nomilk'
+              ></input>  <label>No milk</label>
+              <br></br>
+              <br></br>
+              <input type='button' value='Buy now!'></input>
+            </form>
+          </div>
+        </div>
+      </div>
     )
   }
 }
