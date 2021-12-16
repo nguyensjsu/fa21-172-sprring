@@ -215,6 +215,5 @@ public class CustomerController {
         repository.save(cus);
         return "Password for " + cus.getFirstname() + " " + cus.getLastname() + " successfully changed"; 
     }
-      
-
+    
 }
