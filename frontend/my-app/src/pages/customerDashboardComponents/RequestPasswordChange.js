@@ -64,6 +64,19 @@ class Home extends Component {
   render() {
     const { oldpassword, newpassword, email } = this.state
 
+    // redirect if password change request goes through
+    if(this.state.status === 'Password change requested.')
+    {
+        return (
+          <div>
+              <div class='sectionTitle'>
+                <p>Request Password Change</p>
+              </div>
+
+              <p class='requestSent'>Request sent!</p>
+          </div>
+        )
+    }
 
 
     return (
