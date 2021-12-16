@@ -153,10 +153,10 @@ public class PurchaseController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Drink!");
         }
 
-        double tax = 0.0456;
-        double total = price * (price + tax);
-        double scale = Math.pow(10,2);
-        double rounded = Math.round(total + scale) / scale;
+        double tax = 1.0456;
+        double total = price * tax;
+        double scale = Math.pow(10,3);
+        double rounded = Math.round(total);
         order.setTotal(rounded);
         order.setStatus("Ready for Payment.");
         order.setMilk(milk);
