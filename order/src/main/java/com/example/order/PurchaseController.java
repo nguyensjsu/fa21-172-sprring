@@ -54,7 +54,7 @@ public class PurchaseController {
     //Submit an order
     @PostMapping("/order/register")
     @ResponseStatus(HttpStatus.CREATED)
-    Purchase newOrder( @RequestBody Purchase order) {
+    String newOrder( @RequestBody Purchase order) {
         if(purchases.isEmpty()) {
             purchases.add(order);
         }
@@ -86,7 +86,7 @@ public class PurchaseController {
                 price = 5.00;
                 break;
             default:
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
+                return "Invalid Size!";
             }
             break;
         case "Black Tea":
@@ -98,7 +98,7 @@ public class PurchaseController {
                 price = 5.00;
                 break;
             default:
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
+                return "Invalid Size!";
             }
             break;
         case "Thai Tea":
@@ -110,10 +110,10 @@ public class PurchaseController {
                 price = 5.00;
                 break;
             default:
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Size!");
+                return  "Invalid Size!";
             }
         default:
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Drink!");
+            return "Invalid Drink!";
         }
         switch(order.getMilk()){
             case "milk":
@@ -123,7 +123,7 @@ public class PurchaseController {
                 milk = "no milk";
                 break;
             default:
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Milk!");
+                return "Invalid Milk!";
         }
         double tax = 1.0456;
         double total = price * tax;
@@ -133,9 +133,9 @@ public class PurchaseController {
         order.setStatus("Ready for Payment.");
         order.setMilk(milk);
         Purchase new_order = repo.save(order);
-        new_order.setMilk(order.getMilk());
+
         purchases.add(order.getOrderNumber() , new_order);
-        return new_order;
+        return "Successful Order!";
              
     }
 
