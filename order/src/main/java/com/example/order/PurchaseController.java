@@ -55,7 +55,9 @@ public class PurchaseController {
     @PostMapping("/order/register")
     @ResponseStatus(HttpStatus.CREATED)
     Purchase newOrder( @RequestBody Purchase order) {
-        purchases.add(order);
+        if(purchases.isEmpty()) {
+            purchases.add(order);
+        }
         order.setOrderNumber(purchases.size());
         System.out.println("Placing Order (Reg ID =" + order.getOrderNumber() + ") => " + order);
         if (order.getDrink().equals("") || order.getDrinkSize().equals("")) {
@@ -63,6 +65,7 @@ public class PurchaseController {
         }
 
         Purchase active = purchases.get(order.getOrderNumber()-1);
+        /**
         if (active != null) {
             System.out.println("Active Order (Reg ID = " + order.getOrderNumber()  + ") +> " + active);
             if (active.getStatus().equals("Ready for Payment.")) {
@@ -70,6 +73,7 @@ public class PurchaseController {
             }
                 
         }
+         **/
         String milk = "no milk";
         double price = 0.0;
         switch (order.getDrink()) {
