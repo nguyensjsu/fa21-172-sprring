@@ -29,8 +29,10 @@ class Home extends Component {
   // handles POST request when form is submitted
   handleSubmit = (e) => {
     e.preventDefault()
+
+    console.log(this.state)
     axios
-      .post('http://localhost:8090/order/register', this.state)
+      .post('http://localhost:8080/order/register', this.state)
       .then((response) => {
         console.log(response)
         const { temp } = this.state
@@ -46,7 +48,7 @@ class Home extends Component {
   }
 
   render() {
-    const { drink, nilk, drinkSize } = this.state
+    const { drink, milk, drinkSize } = this.state
 
     return (
       <div>
@@ -59,10 +61,19 @@ class Home extends Component {
           <img class='menuItemImage' src={greenTeaImg} alt='Green Tea'></img>
           <div class='menuDetails'>
             <h3 class='menuItemName'>Green Tea</h3>
-            <form action='/action_page.php'>
+            <form onSubmit={this.handleSubmit}>
+              {/* Drink Type */}
+              <input
+                onChange={this.handleChange}
+                type='hidden'
+                id='drink'
+                name='drink'
+                value='Green Tea'
+              ></input>
               {/* Drink Size */}
               <p>Drink size:</p> 
               <input
+                onChange={this.handleChange}
                 type='radio'
                 id='drinkSize'
                 name='drinkSize'
@@ -70,6 +81,7 @@ class Home extends Component {
               ></input>
                 <label>Medium $4.00</label>
               <input
+                onChange={this.handleChange}
                 type='radio'
                 id='drinkSize'
                 name='drinkSize'
@@ -79,17 +91,27 @@ class Home extends Component {
               <br></br>
               {/* Milk Options */}
               <p>Milk/no milk:</p> 
-              <input type='radio' id='milk' name='milk' value='milk'></input> {' '}
-              <label>Milk</label>
               <input
+                onChange={this.handleChange}
                 type='radio'
                 id='milk'
                 name='milk'
-                value='nomilk'
-              ></input>  <label>No milk</label>
+                value='milk'
+              ></input>
+                <label>Milk</label>
+              <input
+                onChange={this.handleChange}
+                type='radio'
+                id='milk'
+                name='milk'
+                value='no milk'
+              ></input>
+                <label>No milk</label>
               <br></br>
               <br></br>
-              <input type='button' value='Buy now!'></input>
+              <button class='submit' type='submit'>
+                Submit
+              </button>
             </form>
           </div>
         </div>
@@ -99,10 +121,19 @@ class Home extends Component {
           <img class='menuItemImage' src={blackTeaImg} alt='Black Tea'></img>
           <div class='menuDetails'>
             <h3 class='menuItemName'>Black Tea</h3>
-            <form action='/action_page.php'>
+            <form onSubmit={this.handleSubmit}>
+              {/* Drink Type */}
+              <input
+                onChange={this.handleChange}
+                type='hidden'
+                id='drink'
+                name='drink'
+                value='Black Tea'
+              ></input>
               {/* Drink Size */}
               <p>Drink size:</p> 
               <input
+                onChange={this.handleChange}
                 type='radio'
                 id='drinkSize'
                 name='drinkSize'
@@ -110,6 +141,7 @@ class Home extends Component {
               ></input>
                 <label>Medium $4.25</label> 
               <input
+                onChange={this.handleChange}
                 type='radio'
                 id='drinkSize'
                 name='drinkSize'
@@ -119,17 +151,27 @@ class Home extends Component {
               <br></br>
               {/* Milk Options */}
               <p>Milk/no milk:</p> 
-              <input type='radio' id='milk' name='milk' value='milk'></input> {' '}
-              <label>Milk</label>
               <input
+                onChange={this.handleChange}
                 type='radio'
                 id='milk'
                 name='milk'
-                value='nomilk'
-              ></input>  <label>No milk</label>
+                value='milk'
+              ></input>
+                <label>Milk</label>
+              <input
+                onChange={this.handleChange}
+                type='radio'
+                id='milk'
+                name='milk'
+                value='no milk'
+              ></input>
+                <label>No milk</label>
               <br></br>
               <br></br>
-              <input type='button' value='Buy now!'></input>
+              <button class='submit' type='submit'>
+                Submit
+              </button>
             </form>
           </div>
         </div>
@@ -139,10 +181,19 @@ class Home extends Component {
           <img class='menuItemImage' src={thaiTeaImg} alt='Thai Tea'></img>
           <div class='menuDetails'>
             <h3 class='menuItemName'>Thai Tea</h3>
-            <form action='/action_page.php'>
+            <form onSubmit={this.handleSubmit}>
+              {/* Drink Type */}
+              <input
+                onChange={this.handleChange}
+                type='hidden'
+                id='drink'
+                name='drink'
+                value='Thai Tea'
+              ></input>
               {/* Drink Size */}
               <p>Drink size:</p> 
               <input
+                onChange={this.handleChange}
                 type='radio'
                 id='drinkSize'
                 name='drinkSize'
@@ -150,6 +201,7 @@ class Home extends Component {
               ></input>
                 <label>Medium $4.50</label> 
               <input
+                onChange={this.handleChange}
                 type='radio'
                 id='drinkSize'
                 name='drinkSize'
@@ -159,17 +211,27 @@ class Home extends Component {
               <br></br>
               {/* Milk Options */}
               <p>Milk/no milk:</p> 
-              <input type='radio' id='milk' name='milk' value='milk'></input> {' '}
-              <label>Milk</label>
               <input
+                onChange={this.handleChange}
                 type='radio'
                 id='milk'
                 name='milk'
-                value='nomilk'
-              ></input>  <label>No milk</label>
+                value='milk'
+              ></input>
+                <label>Milk</label>
+              <input
+                onChange={this.handleChange}
+                type='radio'
+                id='milk'
+                name='milk'
+                value='no milk'
+              ></input>
+                <label>No milk</label>
               <br></br>
               <br></br>
-              <input type='button' value='Buy now!'></input>
+              <button class='submit' type='submit'>
+                Submit
+              </button>
             </form>
           </div>
         </div>
