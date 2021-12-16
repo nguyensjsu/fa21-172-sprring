@@ -55,12 +55,14 @@ public class PurchaseController {
     @PostMapping("/order/register")
     @ResponseStatus(HttpStatus.CREATED)
     Purchase newOrder( @RequestBody Purchase order) {
+        purchases.add(order);
+        order.setOrderNumber(purchases.size());
         System.out.println("Placing Order (Reg ID =" + order.getOrderNumber() + ") => " + order);
         if (order.getDrink().equals("") || order.getDrinkSize().equals("")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Request!");
         }
 
-        Purchase active = purchases.get(Integer.parseInt(order.getOrderNumber() ));
+        Purchase active = purchases.get(order.getOrderNumber()-1);
         if (active != null) {
             System.out.println("Active Order (Reg ID = " + order.getOrderNumber()  + ") +> " + active);
             if (active.getStatus().equals("Ready for Payment.")) {
@@ -155,7 +157,7 @@ public class PurchaseController {
         order.setStatus("Ready for Payment.");
         order.setMilk(milk);
         Purchase new_order = repo.save(order);
-        purchases.add(Integer.parseInt(order.getOrderNumber() ), new_order);
+        purchases.add(order.getOrderNumber() , new_order);
         return new_order;
              
     }
@@ -166,8 +168,10 @@ public class PurchaseController {
         return repo.findAll();
     }
 
+
+    /***
     //Get specific order with ID
-    @GetMapping("/order/")
+    @GetMapping("/order")
     Purchase getActiveOrder(@RequestBody Purchase order, HttpServletResponse response) {
         Purchase active = purchases.get(Integer.parseInt(order.getOrderNumber()));
         if (active != null) {
@@ -176,7 +180,9 @@ public class PurchaseController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
         }
     }
+    **/
 
+    /**
     //Clear paid orders
     @DeleteMapping("/cancel")
     Message deleteActiveOrder(@RequestBody Purchase order) {
@@ -191,5 +197,5 @@ public class PurchaseController {
         }
     }
 
-
+**/
 }

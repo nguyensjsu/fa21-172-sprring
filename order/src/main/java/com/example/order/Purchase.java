@@ -40,5 +40,5 @@ public class Purchase {
         return drinkSize;
     }
 
-    private String orderNumber;
+    private Integer orderNumber;
 }
