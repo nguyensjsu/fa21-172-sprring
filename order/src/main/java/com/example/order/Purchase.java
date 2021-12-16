@@ -39,4 +39,6 @@ public class Purchase {
     public String getDrinkSize(){
         return drinkSize;
     }
+
+    private Integer orderNumber;
 }
