@@ -146,7 +146,7 @@ public class PurchaseController {
 
 
     //Get specific order with ID
-    @GetMapping("/order")
+    @GetMapping("/getorder")
     Purchase getActiveOrder(@RequestBody Integer orderNum, HttpServletResponse response) {
         Purchase active = purchases.get(orderNum);
         if (active != null) {
