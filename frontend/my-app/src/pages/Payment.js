@@ -43,7 +43,7 @@ class Payment extends Component {
       .then((response) => {
         console.log(response)
         response.data.forEach((order) => {
-          if (order.status === 'Ready for Payment') {
+          if (order.id) {
             this.setState({
               order: order,
               ordernumber: order.orderNumber,
