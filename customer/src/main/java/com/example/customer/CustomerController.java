@@ -180,10 +180,7 @@ public class CustomerController {
     @PostMapping("/customer/request/")
     @CrossOrigin(origins = "*")
     String requestPasswordChange(@RequestBody Customer customer, HttpServletResponse response) {
-<<<<<<< HEAD
         
-=======
->>>>>>> cf3fb15c9e42a005eb41254ca26bff2e37447568
         Customer cus = repository.findByEmail(customer.getEmail());
         //data from user
         String oldpassword = hmac_sha256(key, customer.getOldpassword());
@@ -219,11 +216,5 @@ public class CustomerController {
         repository.save(cus);
         return "Password for " + cus.getFirstname() + " " + cus.getLastname() + " successfully changed"; 
     }
-<<<<<<< HEAD
     
 }
-=======
-      
-
-}
->>>>>>> 948bf7c6cf088980d4fc55260983f8ab0cb2a063
