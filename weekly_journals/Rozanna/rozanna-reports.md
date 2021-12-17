@@ -147,5 +147,12 @@ worked with Ryan on PurchaseController, order/ to frontend/ connection, passing 
 
 worked on deploying payment/ to docker
 worked on deploying order/ to docker
+worked on deploying customer/ to docker
+
+was successful on deploying a payment-mysql and payment-api container running on Docker
+was unsuccessful on deploying mysql containers and order/ and customer/ containers on Docker
+
+group call to talk about the project
+talked about order/ and added a method to change order's status
 
 ## 12/xx
