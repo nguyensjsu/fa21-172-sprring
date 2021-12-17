@@ -23,7 +23,6 @@ import javax.persistence.Index;
 public class Purchase {
     @Id @GeneratedValue(strategy=GenerationType.AUTO) private Integer id;
     private double total;
-    private String status;
     @Column(nullable=false) private String drink;
     @Column(nullable=false) private String milk;
     @Column(nullable=false) private String drinkSize;
