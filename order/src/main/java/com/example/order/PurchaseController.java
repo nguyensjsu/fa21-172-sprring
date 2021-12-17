@@ -131,7 +131,8 @@ public class PurchaseController {
         Purchase new_order = repo.save(order);
 
         purchases.add(order.getOrderNumber() , new_order);
-        return "Successful Order!";
+        return "Successful Order! the order number is -" + order.getOrderNumber().toString()+"- and the cost is $"+
+                order.getTotal();
              
     }
 
@@ -143,18 +144,18 @@ public class PurchaseController {
     }
 
 
-    /***
+
     //Get specific order with ID
     @GetMapping("/order")
-    Purchase getActiveOrder(@RequestBody Purchase order, HttpServletResponse response) {
-        Purchase active = purchases.get(Integer.parseInt(order.getOrderNumber()));
+    Purchase getActiveOrder(@RequestBody Integer orderNum, HttpServletResponse response) {
+        Purchase active = purchases.get(orderNum);
         if (active != null) {
             return active;
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
         }
     }
-    **/
+
 
     /**
     //Clear paid orders
