@@ -108,6 +108,7 @@ public class PurchaseController {
             default:
                 return  "Invalid Size!";
             }
+            break;
         default:
             return "Invalid Drink!";
         }
