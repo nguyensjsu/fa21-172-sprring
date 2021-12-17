@@ -49,148 +49,46 @@ class Home extends Component {
 
   render() {
     const { drink, milk, drinkSize } = this.state
-
+    if (this.state.status === 'Successful Order!') {
+      return <Redirect to='/payment' />
+    }
     return (
       <div>
         <div class='sectionTitle'>
-          <p>Order Here</p>
+          <p>Menu</p>
         </div>
-
-        {/* Green Tea */}
-        <div class='menuItem'>
-          <img class='menuItemImage' src={greenTeaImg} alt='Green Tea'></img>
-          <div class='menuDetails'>
-            <h3 class='menuItemName'>Green Tea</h3>
-            <form onSubmit={this.handleSubmit}>
-              {/* Drink Type */}
-              <input
-                onChange={this.handleChange}
-                type='hidden'
-                id='drink'
-                name='drink'
-                value='Green Tea'
-              ></input>
-              {/* Drink Size */}
-              <p>Drink size:</p> 
-              <input
-                onChange={this.handleChange}
-                type='radio'
-                id='drinkSize'
-                name='drinkSize'
-                value='Medium'
-              ></input>
-                <label>Medium $4.00</label>
-              <input
-                onChange={this.handleChange}
-                type='radio'
-                id='drinkSize'
-                name='drinkSize'
-                value='Large'
-              ></input>
-                <label>Large $5.00</label>
-              <br></br>
-              {/* Milk Options */}
-              <p>Milk/no milk:</p> 
-              <input
-                onChange={this.handleChange}
-                type='radio'
-                id='milk'
-                name='milk'
-                value='milk'
-              ></input>
-                <label>Milk</label>
-              <input
-                onChange={this.handleChange}
-                type='radio'
-                id='milk'
-                name='milk'
-                value='no milk'
-              ></input>
-                <label>No milk</label>
-              <br></br>
-              <br></br>
-              <button class='submit' type='submit'>
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* Black Tea */}
-        <div class='menuItem'>
-          <img class='menuItemImage' src={blackTeaImg} alt='Black Tea'></img>
-          <div class='menuDetails'>
-            <h3 class='menuItemName'>Black Tea</h3>
-            <form onSubmit={this.handleSubmit}>
-              {/* Drink Type */}
-              <input
-                onChange={this.handleChange}
-                type='hidden'
-                id='drink'
-                name='drink'
-                value='Black Tea'
-              ></input>
-              {/* Drink Size */}
-              <p>Drink size:</p> 
-              <input
-                onChange={this.handleChange}
-                type='radio'
-                id='drinkSize'
-                name='drinkSize'
-                value='Medium'
-              ></input>
-                <label>Medium $4.25</label> 
-              <input
-                onChange={this.handleChange}
-                type='radio'
-                id='drinkSize'
-                name='drinkSize'
-                value='Large'
-              ></input>
-                <label>Large $5.00</label>
-              <br></br>
-              {/* Milk Options */}
-              <p>Milk/no milk:</p> 
-              <input
-                onChange={this.handleChange}
-                type='radio'
-                id='milk'
-                name='milk'
-                value='milk'
-              ></input>
-                <label>Milk</label>
-              <input
-                onChange={this.handleChange}
-                type='radio'
-                id='milk'
-                name='milk'
-                value='no milk'
-              ></input>
-                <label>No milk</label>
-              <br></br>
-              <br></br>
-              <button class='submit' type='submit'>
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
-
         {/* Thai Tea */}
         <div class='menuItem'>
           <img class='menuItemImage' src={thaiTeaImg} alt='Thai Tea'></img>
           <div class='menuDetails'>
-            <h3 class='menuItemName'>Thai Tea</h3>
+            <h3 class='menuItemName'>Order Here</h3>
             <form onSubmit={this.handleSubmit}>
               {/* Drink Type */}
+              <p>Drink Type:</p> 
               <input
                 onChange={this.handleChange}
-                type='hidden'
+                type='radio'
+                id='drink'
+                name='drink'
+                value='Green Tea'
+              ></input>
+              <label>Green Tea</label> 
+              <input
+                onChange={this.handleChange}
+                type='radio'
+                id='drink'
+                name='drink'
+                value='Black Tea'
+              ></input>
+              <label>Black Tea</label> 
+              <input
+                onChange={this.handleChange}
+                type='radio'
                 id='drink'
                 name='drink'
                 value='Thai Tea'
               ></input>
-              {/* Drink Size */}
+              <label>Thai Tea</label> {/* Drink Size */}
               <p>Drink size:</p> 
               <input
                 onChange={this.handleChange}
@@ -199,7 +97,7 @@ class Home extends Component {
                 name='drinkSize'
                 value='Medium'
               ></input>
-                <label>Medium $4.50</label> 
+                <label>Medium</label> 
               <input
                 onChange={this.handleChange}
                 type='radio'
@@ -207,7 +105,7 @@ class Home extends Component {
                 name='drinkSize'
                 value='Large'
               ></input>
-                <label>Large $5.00</label>
+                <label>Large</label>
               <br></br>
               {/* Milk Options */}
               <p>Milk/no milk:</p> 
