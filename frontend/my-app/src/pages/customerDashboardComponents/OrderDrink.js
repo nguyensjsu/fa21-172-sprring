@@ -45,12 +45,13 @@ class Home extends Component {
       .catch((error) => {
         console.log(error)
       })
+    
   }
 
   render() {
     const { drink, milk, drinkSize } = this.state
 
-    if (this.state.status.includes('Successful Order!')) {
+    if (this.state.status != null && this.state.status.includes('Successful Order!')) {
       let ordernumArray = this.state.split('-')
       let ordernum = ordernumArray[1]
       let amountArray = this.state.status.split('$')
