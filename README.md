@@ -7,7 +7,7 @@ Team project for SJSU CMPE 172 Enterprise Software Fall 2021
 
 ## Navigation
  - [Design](##design)
- - [How to Run](##how-to-run)
+ - [How to Run: Local](##how-to-run:-local)
  - [Reports](##reports)
  - *No fixed header-linking in README file, please use `Ctrl + F` to search.*
 
@@ -43,7 +43,7 @@ The REST API processes api calls to manage orders, customers, and cards, which w
 
 # ==========================================
 
-## How to Run
+## How to Run: Local
 
 NOTE: Clone the entire repository to a folder on your local machine before following these steps. The following steps runs the application locally. **ENSURE that Node.js is installed on your local machine.**
 
