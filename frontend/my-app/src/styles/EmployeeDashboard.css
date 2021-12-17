@@ -22,6 +22,11 @@ body {
   width: 100%;
 }
 
+/* Log Out Button */
+.logoutButton {
+  margin-top: 1rem;
+}
+
 /* section titles (Password Change Requests, All Orders) */
 .sectionTitle {
   font-size: 1.75rem;

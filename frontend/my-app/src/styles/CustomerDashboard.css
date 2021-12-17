@@ -12,6 +12,15 @@ body {
     margin-top: 1rem;
 }
 
+/* section titles (Request Password Change, Order Drink) */
+.sectionTitle {
+    font-size: 1.75rem;
+    border-bottom: 1px solid rgb(151, 151, 151);
+    line-height: 0;
+    padding-top: 2rem;
+    text-align: center;
+}
+
 /* Request Password Change */
 .passChangeForm {
     padding-top: 2rem;
@@ -56,12 +65,20 @@ tr:nth-child(odd) {
     width: 100%;
 }
 
+.menuImages {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3rem;
+}
+
 .menuItemName {
     margin: 0;
+    text-align: center;
 }
 
 .menuDetails {
     width: 30rem;
+    margin: auto;
 }
 
 .menuItemImage {
@@ -71,3 +88,4 @@ tr:nth-child(odd) {
     margin: auto;
     border-radius: 50%;
 }
+

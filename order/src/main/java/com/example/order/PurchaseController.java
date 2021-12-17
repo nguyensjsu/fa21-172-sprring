@@ -113,11 +113,11 @@ public class PurchaseController {
             return "Invalid Drink!";
         }
         switch(order.getMilk()){
-            case "milk":
-                milk = "milk";
+            case "Milk":
+                milk = "Milk";
                 break;
-            case "no milk":
-                milk = "no milk";
+            case "No Milk":
+                milk = "No Milk";
                 break;
             default:
                 return "Invalid Milk!";
@@ -127,7 +127,7 @@ public class PurchaseController {
         double scale = Math.pow(10,3);
         double rounded = Math.round(total*100.0)/100.0;
         order.setTotal(rounded);
-        order.setStatus("Ready for Payment.");
+        order.setStatus("Ready for Payment");
         order.setMilk(milk);
         Purchase new_order = repo.save(order);
 
@@ -144,7 +144,19 @@ public class PurchaseController {
         return repo.findAll();
     }
 
-
+    //Set order status to "Paid"
+    @PostMapping("/order/setpaid")
+    @CrossOrigin(origins = "*")
+    @ResponseStatus(HttpStatus.CREATED)
+    String setPaid(@RequestBody String orderNumber) {
+        Purchase active = repo.findByOrderNumber(orderNumber);
+        if (active != null) {
+            active.setStatus("Order Paid");
+            return "Order Paid";
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
+        }
+    }
 
     //Get specific order with ID
     @GetMapping("/getorder")

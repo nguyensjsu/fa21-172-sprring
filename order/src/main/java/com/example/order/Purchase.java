@@ -41,4 +41,8 @@ public class Purchase {
     }
 
     private Integer orderNumber;
+
+    public Integer getOrderNumber(){
+        return orderNumber;
+    }
 }

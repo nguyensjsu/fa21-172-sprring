@@ -22,6 +22,7 @@ class EmployeeDashboard extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleLogout = this.handleLogout.bind(this)
   }
 
   componentDidMount() {
@@ -62,12 +63,25 @@ class EmployeeDashboard extends Component {
       })
   }
 
+  handleLogout() {
+    this.setState({
+      status: 'Logout Successful'
+    })
+  }
+
   render() {
     const { firstname, lastname, email } = this.state
+
+    if(this.state.status === 'Logout Successful') {
+      return <Redirect to='/employeelogin' />
+    }
     
     return (
       <div class='wrapper'>
         <div class='employeeDashboardContent'>
+          <div class='logoutButton'>
+            <button onClick={this.handleLogout}>Log Out</button>
+          </div>
           
           <AllowPasswordChange />
 

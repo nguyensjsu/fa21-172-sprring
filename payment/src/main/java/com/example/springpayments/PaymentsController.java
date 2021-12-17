@@ -168,7 +168,7 @@ public class PaymentsController {
     // get all payments
     @GetMapping("/payments")
     @CrossOrigin(origins = "*")
-    public List<PaymentsCommand> getAllPayments(@RequestBody PaymentsCommand command) {
+    public List<PaymentsCommand> getAllPayments() {
         return respository.findAll();
     }
 

@@ -12,22 +12,24 @@ class AllOrders extends Component {
     super()
 
     this.state = {
-      requests: [],
+      orders: [],
+      payments: [],
+      ordernumber: '',
       firstname: '',
       lastname: '',
-      email: ''
+      drink: '',
+      drinkSize: '',
+      milk: ''
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
-    axios.get('http://localhost:8090/customers/requests')
+    axios.get('http://localhost:8080/orders')
       .then(response => {
         console.log(response)
           this.setState({
-            requests: response.data
+            orders: response.data
           })
         console.log(this.state)
       })
@@ -36,32 +38,7 @@ class AllOrders extends Component {
       })
   }
 
-  handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
-
-  // handles POST request when form is submitted
-  handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(this.state)
-    axios
-      .post('http://localhost:8090/customer/approve-request', this.state)
-      .then((response) => {
-        console.log(response)
-        const {temp} = this.state
-        this.setState({
-          ...temp,
-          status: response.data
-        })
-        console.log(this.state)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-
   render() {
-    const { firstname, lastname, email } = this.state
     
     return (
       <div>
@@ -72,23 +49,19 @@ class AllOrders extends Component {
           <table>
             <tr>
               <th>Order ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
               <th>Drink</th>
               <th>Drink Size</th>
               <th>Milk/No Milk</th>
             </tr>
 
-            {/* {this.state.customers.map(customer =>
-              <tr key={customer.id}>
-                <td>12345</td>
-                <td>{customer.firstname}</td>
-                <td>{customer.lastname}</td>
-                <td>Green Tea</td>
-                <td>Large</td>
-                <td>Milk</td>
+            {this.state.orders.map(order =>
+              <tr>
+                <td>{order.id}</td>
+                <td>{order.drink}</td>
+                <td>{order.drinkSize}</td>
+                <td>{order.milk}</td>
               </tr>
-            )} */}
+            )}
           </table>
         </div>
     )

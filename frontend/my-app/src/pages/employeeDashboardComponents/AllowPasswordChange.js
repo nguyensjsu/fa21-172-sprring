@@ -71,7 +71,7 @@ class AllowPasswordChange extends Component {
                 </div>
 
                 <div>
-                    <p class='passChangeApproved'>password changed allowed!</p>
+                    <p class='passChangeApproved'>Password changed for {this.state.firstname} {this.state.lastname}!</p>
                 </div>
             </div>
         )

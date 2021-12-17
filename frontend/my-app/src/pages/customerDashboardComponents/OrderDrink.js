@@ -74,8 +74,13 @@ class Home extends Component {
           <p>Menu</p>
         </div>
         {/* Thai Tea */}
-        <div class='menuItem'>
+        <div class='menuImages'>
+          <img class='menuItemImage' src={greenTeaImg} alt='Thai Tea'></img>
+          <img class='menuItemImage' src={blackTeaImg} alt='Thai Tea'></img>
           <img class='menuItemImage' src={thaiTeaImg} alt='Thai Tea'></img>
+        </div>
+        <div class='menuItem'>
+          
           <div class='menuDetails'>
             <h3 class='menuItemName'>Order Here</h3>
             <form onSubmit={this.handleSubmit}>
@@ -130,7 +135,7 @@ class Home extends Component {
                 type='radio'
                 id='milk'
                 name='milk'
-                value='milk'
+                value='Milk'
               ></input>
                 <label>Milk</label>
               <input
@@ -138,7 +143,7 @@ class Home extends Component {
                 type='radio'
                 id='milk'
                 name='milk'
-                value='no milk'
+                value='No Milk'
               ></input>
                 <label>No milk</label>
               <br></br>
