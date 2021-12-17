@@ -20,7 +20,7 @@ docker build -t payment-api .
 5. Create the MySQL container by running the following command:
 
 ```
-docker run -d --network gongcha-network --name payment-mysql -td -p 3306:3306 -e MYSQL_ROOT_PASSWORD=cmpe172 mysql:8.0
+docker run -d --network gongcha-network --name payment-mysql -td -p 3307:3307 -e MYSQL_ROOT_PASSWORD=cmpe172 mysql:8.0
 ```
 
 6. Open the MySQL container's terminal on Docker (the CLI), and enter in the following in the terminal to create the `payment` database:
