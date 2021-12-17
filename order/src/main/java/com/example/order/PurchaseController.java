@@ -100,12 +100,12 @@ public class PurchaseController {
             default:
                 return "Invalid Milk!";
         }
-
-
-
         double rounded = Math.round(price*100.0)/100.0;
         order.setTotal(rounded);
+<<<<<<< HEAD
         order.setStatus("Ready for Payment");
+=======
+>>>>>>> 045ef00a9c251ac3239652355233e7abfc7053ab
         order.setMilk(milk);
         Purchase new_order = repo.save(order);
 
@@ -122,6 +122,10 @@ public class PurchaseController {
         return repo.findAll();
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 045ef00a9c251ac3239652355233e7abfc7053ab
     //Get specific order with ID
     @GetMapping("/getorder")
     Purchase getActiveOrder(@RequestBody Integer orderNum, HttpServletResponse response) {
