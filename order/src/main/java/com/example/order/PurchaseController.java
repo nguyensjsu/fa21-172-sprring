@@ -24,18 +24,6 @@ public class PurchaseController {
         purchases = new ArrayList<Purchase>();
     }
 
-    class Message {
-        private String status;
-
-        //public String getStatus() {
-        //    return status;
-        //}
-
-        public void setStatus(String msg) {
-            status = msg;
-        }
-    }
-
     //Ping method - check status of purchase server
     @CrossOrigin(origins = "*")
     @GetMapping(value={"/","/ping"})
@@ -60,16 +48,6 @@ public class PurchaseController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Order Request!");
         }
 
-        Purchase active = purchases.get(order.getOrderNumber()-1);
-        /**
-        if (active != null) {
-            System.out.println("Active Order (Reg ID = " + order.getOrderNumber()  + ") +> " + active);
-            if (active.getStatus().equals("Ready for Payment.")) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Active Order Exists!");
-            }
-                
-        }
-         **/
         String milk = "";
         double price = 0.0;
         switch (order.getDrink()) {
@@ -122,12 +100,15 @@ public class PurchaseController {
             default:
                 return "Invalid Milk!";
         }
-        double tax = 1.0456;
-        double total = price * tax;
-        double scale = Math.pow(10,3);
-        double rounded = Math.round(total*100.0)/100.0;
+
+
+
+        double rounded = Math.round(price*100.0)/100.0;
         order.setTotal(rounded);
+<<<<<<< HEAD
         order.setStatus("Ready for Payment");
+=======
+>>>>>>> ee0ec7f9e2c741162c7864bb91acf012016920ec
         order.setMilk(milk);
         Purchase new_order = repo.save(order);
 
@@ -169,21 +150,4 @@ public class PurchaseController {
         }
     }
 
-
-    /**
-    //Clear paid orders
-    @DeleteMapping("/cancel")
-    Message deleteActiveOrder(@RequestBody Purchase order) {
-        Purchase active = purchases.get(Integer.parseInt(order.getOrderNumber() ));
-        if (active != null && active.getStatus().startsWith("Paid With Card")) {
-            purchases.remove(order.getOrderNumber() );
-            Message msg = new Message();
-            msg.setStatus("Order Cancelled");
-            return msg;
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
-        }
-    }
-
-**/
 }

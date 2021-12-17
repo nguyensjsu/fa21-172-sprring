@@ -23,18 +23,18 @@ docker build -t order-api .
 docker run -d --network gongcha-network --name order-mysql -td -p 3306:3306 -e MYSQL_ROOT_PASSWORD=cmpe172 mysql:8.0
 ```
 
-6. Open the MySQL container's terminal on Docker (the CLI), and enter in the following in the terminal to create the `order` database:
+6. Open the MySQL container's terminal on Docker (the CLI), and enter in the following in the terminal to create the `orders` database:
 
 ```
 mysql --password
 `cmpe172`
 show databases;
-create database order;
+create database orders;
 show databases;
-use order;
+use orders;
 ```
 
-7. Create the Payment container by running the following command:
+7. Create the Order container by running the following command:
 
 ```
 docker run --network gongcha-network -e "MYSQL_HOST=mysql" --name order-api -td -p 8080:8080 order-api

@@ -83,6 +83,8 @@ NOTE: You will have 4 different terminals open
 
 2. Follow the instructions in the [Order Deployment readme file](order/readme.md) to start up order/.
 
+3. Follow the instructions in the [Customer Deployment readme file](customer/readme.md) to start up customer/.
+
 # ==========================================
 
 ## Reports
