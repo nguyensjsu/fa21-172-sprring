@@ -142,6 +142,9 @@ just have order/ left and then we're done!!!
 
 ## 12/16
 group call to talk about the project
+
 worked with Ryan on PurchaseController, order/ to frontend/ connection, passing data into Payment.js component
+
+worked on deploying payment/ to docker with a 
 
 ## 12/xx
