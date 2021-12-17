@@ -1,15 +1,13 @@
 import React, { Component, Fragment, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import '../styles/EmployeeDashboard.css'
-import AllowPasswordChange from './employeeDashboardComponents/AllowPasswordChange'
-import AllOrders from './employeeDashboardComponents/AllOrders'
+import '../../styles/EmployeeDashboard.css'
 
 const api = axios.create({
   baseURL: 'http://localhost:8090/customers'
 })
 
-class EmployeeDashboard extends Component {
+class AllOrders extends Component {
   constructor() {
     super()
 
@@ -66,17 +64,35 @@ class EmployeeDashboard extends Component {
     const { firstname, lastname, email } = this.state
     
     return (
-      <div class='wrapper'>
-        <div class='employeeDashboardContent'>
-          
-          <AllowPasswordChange />
+      <div>
+          <div class='sectionTitle'>
+            <p>All Orders</p>
+          </div>
 
-          <AllOrders />
-          
+          <table>
+            <tr>
+              <th>Order ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Drink</th>
+              <th>Drink Size</th>
+              <th>Milk/No Milk</th>
+            </tr>
+
+            {/* {this.state.customers.map(customer =>
+              <tr key={customer.id}>
+                <td>12345</td>
+                <td>{customer.firstname}</td>
+                <td>{customer.lastname}</td>
+                <td>Green Tea</td>
+                <td>Large</td>
+                <td>Milk</td>
+              </tr>
+            )} */}
+          </table>
         </div>
-      </div>
     )
   }
 }
 
-export default EmployeeDashboard
+export default AllOrders
