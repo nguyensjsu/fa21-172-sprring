@@ -12,7 +12,8 @@
  - [12/8](##12/8)
  - [12/10](##12/10)
  - [12/16](##12/16)
- - [12/xx](##12/xx)
+ - [12/17](##12/17)
+ - [12/18](##12/18)
  - *No fixed header-linking in README file, please use `Ctrl + F` to search.*
 
 ## 10/13
@@ -155,4 +156,15 @@ was unsuccessful on deploying mysql containers and order/ and customer/ containe
 group call to talk about the project
 talked about order/ and added a method to change order's status
 
-## 12/xx
+## 12/17
+group call to talk about the project
+confirmed everything works when running through terminal (containerized)
+
+watched Shayanna record the demo video
+
+Nhu is going to try deploying to GKE
+
+planning to submit demo link and github repo after she finishes
+
+## 12/18
+Saturday 9:30AM - project demo with team and Professor Paul Nguyen
