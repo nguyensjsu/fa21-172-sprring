@@ -145,6 +145,7 @@ group call to talk about the project
 
 worked with Ryan on PurchaseController, order/ to frontend/ connection, passing data into Payment.js component
 
-worked on deploying payment/ to docker with a 
+worked on deploying payment/ to docker
+worked on deploying order/ to docker
 
 ## 12/xx

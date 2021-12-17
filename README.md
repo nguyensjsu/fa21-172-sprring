@@ -77,6 +77,12 @@ NOTE: Clone the entire repository to a folder on your local machine before follo
 
 NOTE: You will have 4 different terminals open
 
+## How to Run: Docker
+
+1. Follow the instructions in the [Payment Deployment readme file](payment/readme.md) to start up payment/.
+
+2. Follow the instructions in the [Order Deployment readme file](order/readme.md) to start up order/.
+
 # ==========================================
 
 ## Reports
