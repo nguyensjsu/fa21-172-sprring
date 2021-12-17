@@ -7,13 +7,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +37,7 @@ public class PurchaseController {
     }
 
     //Ping method - check status of purchase server
+    @CrossOrigin(origins = "*")
     @GetMapping(value={"/","/ping"})
     String home() {
         return "Welcome to Gong Cha - Purchase Management!";
@@ -53,6 +48,7 @@ public class PurchaseController {
 //Order related calls
     //Submit an order
     @PostMapping("/order/register")
+    @CrossOrigin(origins = "*")
     @ResponseStatus(HttpStatus.CREATED)
     String newOrder( @RequestBody Purchase order) {
         if(purchases.isEmpty()) {
@@ -135,29 +131,31 @@ public class PurchaseController {
         Purchase new_order = repo.save(order);
 
         purchases.add(order.getOrderNumber() , new_order);
-        return "Successful Order!";
+        return "Successful Order! the order number is -" + order.getOrderNumber().toString()+"- and the cost is $"+
+                order.getTotal();
              
     }
 
     //Get list of all orders
     @GetMapping("/orders")
+    @CrossOrigin(origins = "*")
     List<Purchase> allOrders() {
         return repo.findAll();
     }
 
 
-    /***
+
     //Get specific order with ID
     @GetMapping("/order")
-    Purchase getActiveOrder(@RequestBody Purchase order, HttpServletResponse response) {
-        Purchase active = purchases.get(Integer.parseInt(order.getOrderNumber()));
+    Purchase getActiveOrder(@RequestBody Integer orderNum, HttpServletResponse response) {
+        Purchase active = purchases.get(orderNum);
         if (active != null) {
             return active;
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order Not Found!");
         }
     }
-    **/
+
 
     /**
     //Clear paid orders

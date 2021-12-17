@@ -9,8 +9,8 @@ import '../styles/Payment.css'
 
 class Payment extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         // this.getPayments()
         this.state = {
             firstname: '',
@@ -26,13 +26,31 @@ class Payment extends Component {
             cvv: '',
             email: '',
             notes: '',
-            ordernumber: '888',
-            transactionamount: '8.88'
+            ordernumber: props.ordernumber,
+            transactionamount: props.transactionamount
         } 
     
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
       }
+    
+
+    // componentDidMount()
+    // {
+    //     axios.get('http://localhost:8080/getorder', this.state.ordernumber)
+    //     .then(response => {
+    //         console.log(response)
+    //         response.data.forEach(order => {
+    //             if (this.state.ordernumber == order.orderNumber)
+    //             {
+    //                 this.setState({
+
+    //                 })
+    //             }
+    //         })
+            
+    //     })
+    // }
 
     // sets the state when inputs in sign up form are filled
     handleChange = e => {
@@ -75,7 +93,7 @@ class Payment extends Component {
         } = this.state
 
         // redirect back to customer dashboard once payment goes through
-        if(this.state.status === 'Thank you for your payment! Your order number is: 888')
+        if(this.state.status === 'Thank you for your payment! Your order number is: ' + this.state.ordernumber)
         {
             return <Redirect to="/customerdashboard" />
         }
