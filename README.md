@@ -8,6 +8,7 @@ Team project for SJSU CMPE 172 Enterprise Software Fall 2021
 ## Navigation
  - [Design](##design)
  - [How to Run: Local](##how-to-run:-local)
+ <!-- - [How to Run: Docker](##how-to-run:-docker) -->
  - [Reports](##reports)
  - *No fixed header-linking in README file, please use `Ctrl + F` to search.*
 
@@ -77,6 +78,7 @@ NOTE: Clone the entire repository to a folder on your local machine before follo
 
 NOTE: You will have 4 different terminals open
 
+<!--
 ## How to Run: Docker
 
 1. Follow the instructions in the [Payment Deployment readme file](payment/readme.md) to start up payment/.
@@ -84,6 +86,8 @@ NOTE: You will have 4 different terminals open
 2. Follow the instructions in the [Order Deployment readme file](order/readme.md) to start up order/.
 
 3. Follow the instructions in the [Customer Deployment readme file](customer/readme.md) to start up customer/.
+
+-->
 
 # ==========================================
 
