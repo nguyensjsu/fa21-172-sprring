@@ -9,8 +9,8 @@ import '../styles/Payment.css'
 
 class Payment extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         // this.getPayments()
         this.state = {
             firstname: '',
@@ -26,13 +26,19 @@ class Payment extends Component {
             cvv: '',
             email: '',
             notes: '',
-            ordernumber: '888',
-            transactionamount: '8.88'
+            ordernumber: props.ordernumber,
+            transactionamount: props.transactionamount
         } 
     
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
       }
+    
+
+    componentDidMount()
+    {
+        axios.get('http://localhost:8080/orders', this.state)
+    }
 
     // sets the state when inputs in sign up form are filled
     handleChange = e => {

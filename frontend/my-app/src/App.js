@@ -59,8 +59,7 @@ function App() {
             </Route>
           </Switch>
           <Switch>
-            <Route path="/payment">
-              <Payment />
+            <Route path="/payment" render={(props) => <Payment {...props}/>}>
             </Route>
           </Switch>
         </div>

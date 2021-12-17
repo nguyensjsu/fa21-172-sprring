@@ -49,9 +49,18 @@ class Home extends Component {
 
   render() {
     const { drink, milk, drinkSize } = this.state
-    if (this.state.status === 'Successful Order!') {
-      return <Redirect to='/payment' />
+
+    if (this.state.status.includes('Successful Order!')) {
+      let ordernumArray = this.state.split('-')
+      let ordernum = ordernumArray[1]
+      let amountArray = this.state.status.split('$')
+      let amount = amountArray[1]
+      return <Redirect to={{
+        pathname: "/payment",
+        state: { ordernumber: ordernum, transactionamount: amount }
+      }} />
     }
+    
     return (
       <div>
         <div class='sectionTitle'>
@@ -135,6 +144,7 @@ class Home extends Component {
         </div>
       </div>
     )
+    
   }
 }
 
