@@ -14,3 +14,7 @@ microservice structure.
 
 Week 4 (11/24 - 12/6):
 Worked on Rest API calls for purchases and customers table calls. Set up React framework for frontend. 
+
+Week 5 (12/7 - 12/17):
+Group call to discuss business logic of the overall application. Completed the microservice for handling purchases. Worked on connecting the 
+frontend to the backend of the application. 
