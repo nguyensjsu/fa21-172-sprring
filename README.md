@@ -94,6 +94,6 @@ NOTE: You will have 4 different terminals open
 ## Reports
 
 Rozanna Abramtsis: [reports](weekly_journals/Rozanna/rozanna-reports.md)
-Shayanna Gatchalian: [report 1](weekly_journals/Shayanna/Week-1-Report.md) [report 2](weekly_journals/Shayanna/Week-2-Report.md) [report 3](weekly_journals/Shayanna/Week-3-Report.md) [report 4](weekly_journals/Shayanna/Week-4-Report.md)
+Shayanna Gatchalian: [report 1](weekly_journals/Shayanna/Week-1-Report.md) [report 2](weekly_journals/Shayanna/Week-2-Report.md) [report 3](weekly_journals/Shayanna/Week-3-Report.md) [report 4](weekly_journals/Shayanna/Week-4-Report.md) [report 5](weekly_journals/Shayanna/Week-5-Report.md) [report 6](weekly_journals/Shayanna/Week-6-Report.md)
 Nhu Nguyen: [reports](weekly_journals/Nhu/week1.md)
 Ryan Tseng: [reports](weekly_journals/Ryan/Weekly-Report.md)
